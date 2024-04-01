@@ -4,19 +4,31 @@
       <v-switch v-model="isDarkTheme" color="primary"></v-switch>
       <span :style="{ color: theme.textColor }">{{ isDarkTheme ? 'Dark' : 'Light' }}</span>
     </div>
-    <div class="container button-container">
-      <v-buttons :color="theme.secondary_2">TEST</v-buttons>
+    <div>
+      <h1>Progress - Josh</h1>
+      <Josh />
     </div>
-    <div class="container tables-container">
-      TABLES
+    <div>
+      <h1>Progress - Junryl</h1>
+      <Junryl />
     </div>
-    <div class="container stepper-container">
-      TABLES
+    <div>
+      <h1>Progress- Jieric</h1>
+      <Jieric />
     </div>
   </div>
 </template>
 <script>
+
+import Josh from './Josh.vue';
+import Jieric from './Jieric.vue';
+import Junryl from './Junryl.vue';
 export default {
+  components: {
+    Jieric,
+    Josh,
+    Junryl
+  },
   data() {
     return {
       isDarkTheme: false
@@ -29,7 +41,7 @@ export default {
     },
   },
 
-  methods :{
+  methods: {
     toggleTheme() {
       this.isDarkTheme = !this.isDarkTheme;
     }
@@ -42,10 +54,12 @@ export default {
   height: 100vh;
   width: 100vw;
 }
+
 .switch-toggle {
   display: flex;
   align-items: center;
 }
+
 .container {
   margin-bottom: 50px;
 }
