@@ -1,11 +1,10 @@
 <template>
-  <div class="main" :style="{ backgroundColor: theme.background }">
+  <div class="main" :style="{ backgroundColor: user.theme.background }">
     <div class="switch-toggle">
       <v-switch v-model="isDarkTheme" color="primary"></v-switch>
-      <span :style="{ color: theme.textColor }">{{ isDarkTheme ? 'Dark' : 'Light' }}</span>
+      <span :style="{ color: user.theme.textColor }">{{ isDarkTheme ? 'Dark' : 'Light' }}</span>
     </div>
     <div>
-      <h1>Progress - Josh</h1>
       <Josh />
     </div>
     <div>
@@ -19,10 +18,11 @@
   </div>
 </template>
 <script>
-
 import Josh from './Josh.vue';
 import Jieric from './Jieric.vue';
 import Junryl from './Junryl.vue';
+import { userStore } from '../stores/index';
+
 export default {
   components: {
     Jieric,
@@ -31,23 +31,26 @@ export default {
   },
   data() {
     return {
-      isDarkTheme: false
+      isDarkTheme: false,
+      user: userStore()
     };
   },
-
-  computed: {
-    theme() {
-      return this.isDarkTheme ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light;
-    },
+  created() {
+    this.applyTheme();
   },
-
+  watch: {
+    isDarkTheme() {
+      this.applyTheme();
+    }
+  },
   methods: {
-    toggleTheme() {
-      this.isDarkTheme = !this.isDarkTheme;
+    applyTheme() {
+      this.user.theme = this.isDarkTheme ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light;
     }
   }
 }
 </script>
+
 <style lang="scss" scoped>
 .main {
   padding: 20px;

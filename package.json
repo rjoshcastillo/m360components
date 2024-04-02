@@ -8,6 +8,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "pinia": "^2.0.16",
     "sass": "1.32",
     "vite-plugin-vue2": "^2.0.3",

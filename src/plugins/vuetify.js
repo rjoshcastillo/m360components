@@ -24,8 +24,21 @@ export default new Vuetify({
       dark: {
         background: '#151C36', //Serious Navy
         textColor: '#FFFFFF', // White
-        primary: '#151C36' //Serious Navy
+        primary: '#008DF0', //Techy Blue
+        secondary_1: '#FFB838', //Hello Yellow
+        secondary_2: '#DA4175', // Pink
+        secondary_3: '#18E2CE', // Teal Appeal
+        secondary_4: '#6D3D91', // Insightful Purple
       },
+    },
+  },
+  icons: {
+    iconfont: 'mdi',
+  },
+  defaults: {
+    VBtn: {
+      variant: 'outlined',
+      rounded: false,
     },
   },
 });

@@ -3,6 +3,7 @@ import { createPinia, PiniaVuePlugin } from 'pinia'
 import vuetify from "./plugins/vuetify.js";
 import App from './App.vue'
 import router from './router/index.js'
+import '@mdi/font/css/materialdesignicons.css';
 
 Vue.use(PiniaVuePlugin)
 
