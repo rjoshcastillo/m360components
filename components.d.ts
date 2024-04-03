@@ -19,6 +19,7 @@ declare module 'vue' {
     VIcon: typeof import('vuetify/lib')['VIcon']
     VIcons: typeof import('vuetify/lib')['VIcons']
     VImg: typeof import('vuetify/lib')['VImg']
+    VInputField: typeof import('./src/components/inputs/VInputField.vue')['default']
     VMain: typeof import('vuetify/lib')['VMain']
     VStepper: typeof import('./src/components/stepper/VStepper.vue')['default']
     VStepperContent: typeof import('vuetify/lib')['VStepperContent']
@@ -27,5 +28,6 @@ declare module 'vue' {
     VStepperItems: typeof import('vuetify/lib')['VStepperItems']
     VStepperStep: typeof import('vuetify/lib')['VStepperStep']
     VSwitch: typeof import('vuetify/lib')['VSwitch']
+    VTextField: typeof import('vuetify/lib')['VTextField']
   }
 }
