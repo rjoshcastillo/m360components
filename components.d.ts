@@ -13,10 +13,15 @@ declare module 'vue' {
     VAvatar: typeof import('vuetify/lib')['VAvatar']
     VBtn: typeof import('vuetify/lib')['VBtn']
     VButtons: typeof import('./src/components/buttons/VButtons.vue')['default']
+    VCardApp: typeof import('./src/components/cardapp/VCardApp.vue')['default']
+    VDivider: typeof import('vuetify/lib')['VDivider']
     VIcon: typeof import('vuetify/lib')['VIcon']
-    VIcons: typeof import('vuetify/lib')['VIcons']
+    VImg: typeof import('vuetify/lib')['VImg']
     VMain: typeof import('vuetify/lib')['VMain']
     VStepper: typeof import('./src/components/stepper/VStepper.vue')['default']
+    VStepperHeader: typeof import('vuetify/lib')['VStepperHeader']
+    VStepperItem: typeof import('vuetify/lib')['VStepperItem']
+    VStepperStep: typeof import('vuetify/lib')['VStepperStep']
     VSwitch: typeof import('vuetify/lib')['VSwitch']
   }
 }

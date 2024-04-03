@@ -12,7 +12,6 @@
       <Junryl />
     </div>
     <div>
-      <h1>Progress- Jieric</h1>
       <Jieric />
     </div>
   </div>
