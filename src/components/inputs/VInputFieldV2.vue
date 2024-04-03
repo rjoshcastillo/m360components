@@ -45,15 +45,15 @@ import debounce from "lodash.debounce";
 
 export default {
   props: {
-    value: {
+    value: { /* FOR DEFAULT VALUE OF TEXTFIELD */
       type: String,
       default: "",
     },
-    maxChar: {
+    maxChar: { /* FOR MAX CHARACTER LENGHT OF TEXTFIELD */
       type: String,
       required: false,
     },
-    required: {
+    required: { /* IF THE FIELD IS REQUIRED, WILL RESULT TO ERROR IF TEXT IS EMPTY */
       type: Boolean,
       required: false,
     },
@@ -65,9 +65,8 @@ export default {
       type: String,
       required: true,
     },
-    type: "", //Text, Password, Email
+    type: "", /* text, email and password */
     placeholder: "",
-    email: false,
     prependIcon: "",
     appendIcon: "",
   },
@@ -85,7 +84,7 @@ export default {
     focusInput() {
       this.$refs.textInput.focus();
     },
-    checkEmail: debounce(function (value) {
+    checkInputValue: debounce(function (value) {
       if (this.type === "email" && this.model && !this.pattern.test(value)) {
         this.errorText = "Invalid Email";
         return;
@@ -106,10 +105,11 @@ export default {
       }
 
       this.model = value;
-      this.checkEmail(value);
+      this.checkInputValue(value);
     },
     handleInput() {
       this.validateRules();
+      this.$emit('input', this.model);
     },
   },
 
