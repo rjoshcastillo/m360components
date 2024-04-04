@@ -1,6 +1,16 @@
 <template>
     <div>
         <br />
+        <h3>MODAL LARGE</h3>
+        <br />
+        <v-buttons @click="openModalLarge" label="Modal Large" variant="primary" />
+        <v-modal-large :dialog="showModalLarge" @closeDialog="closeModalLarge"></v-modal-large>
+        <br />
+        <br />
+        <h3>TABLE</h3>
+        <br />
+        <v-table-action></v-table-action>
+        <br />
         <h3>CARD APP</h3>
         <br />
         <div class="cardapp-container">
@@ -30,6 +40,7 @@ export default {
     },
     data() {
         return {
+            showModalLarge: false,
             cards: [
                 {
                     "imageUrl": formed,
@@ -87,8 +98,19 @@ export default {
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fermentum posuere turpis quis molestie. Sed luctus, augue eu consectetur interdum, sem dolor consequat ligula.",
                     "channels": ["messenger", "instagram", "viber", "whatsapp"]
                 },
+            ],
+            table: [
+
             ]
         };
+    },
+    methods: {
+        openModalLarge() {
+            this.showModalLarge = true;
+        },
+        closeModalLarge() {
+            this.showModalLarge = false;
+        }
     }
 }
 </script>
@@ -104,4 +126,3 @@ export default {
     }
 }
 </style>
-
