@@ -86,7 +86,7 @@ export default {
       this.$refs.textInput.focus();
     },
 
-    trimInput() {
+    trimInputValue(){
       const maxLength = parseInt(this.maxChar);
       const target = this.$refs.textInput;
       let value = target.value;
@@ -109,8 +109,9 @@ export default {
     },
 
     handleInput() {
-      this.trimInput();
+      this.trimInputValue();
       this.debounceValidateInput(this.model);
+      this.$emit('input', this.model)
     },
 
     emitInputError() {
@@ -123,7 +124,7 @@ export default {
   },
 
   mounted() {
-    this.trimInput();
+    this.trimInputValue();
     this.debounceValidateInput = debounce(this.validateInput, 300);
 
     this.$refs.textInput.addEventListener("focus", () => {
@@ -131,7 +132,7 @@ export default {
     });
     this.$refs.textInput.addEventListener("blur", () => {
       this.isFocus = false;
-      this.validateInput();
+      this.validateInput(this.model)
     });
   },
 };

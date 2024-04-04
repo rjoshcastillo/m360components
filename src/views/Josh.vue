@@ -100,6 +100,7 @@
             <v-col cols="12" sm="4">
               <v-input-field-v2
                 @input="inputValue"
+                @inputError="inputError"
                 type="text"
                 label="Workspace Name"
                 placeholder="Enter workspace name"
@@ -111,10 +112,12 @@
             <v-col cols="12" sm="4">
               <v-input-field-v2
                 @input="inputValue"
+                @inputError="inputError"
                 type="text"
                 label="Workspace Name"
                 prependIcon="mdi-email-outline"
                 placeholder="Enter workspace name"
+                required
               >
               </v-input-field-v2>
             </v-col>
@@ -123,6 +126,7 @@
             <v-col cols="12" sm="4">
               <v-input-field-v2
                 @input="inputValue"
+                @inputError="inputError"
                 type="text"
                 label="Workspace Name"
                 appendIcon="mdi-chevron-down"
@@ -136,6 +140,7 @@
             <v-col cols="12" sm="4">
               <v-input-field-v2
                 @input="inputValue"
+                @inputError="inputError"
                 type="text"
                 label="Workspace Name"
                 prependIcon="mdi-email-outline"
@@ -149,6 +154,7 @@
             <v-col cols="12" sm="4">
               <v-input-field-v2
                 @input="inputValue"
+                @inputError="inputError"
                 type="text"
                 hintText="What's the hint?"
                 label="Workspace Name"
@@ -164,6 +170,7 @@
               <v-input-field-v2
                 value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                 @input="inputValue"
+                @inputError="inputError"
                 type="text"
                 hintText="What's the hint?"
                 label="Workspace Name"
@@ -181,6 +188,7 @@
               <v-input-field-v2
                 :value="'This is a default value'"
                 @input="inputValue"
+                @inputError="inputError"
                 type="text"
                 hintText="What's the hint?"
                 label="Workspace Name"
@@ -197,6 +205,8 @@
             <v-col cols="12" sm="4">
               <v-input-field-v2
                 type="password"
+                @input="inputValue"
+                @inputError="inputError"
                 hintText="What's the hint?"
                 label="Password"
                 prependIcon="mdi-lock-outline"
