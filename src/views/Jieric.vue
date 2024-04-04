@@ -1,27 +1,106 @@
 <template>
     <div>
-        <br />
-        <h3>MODAL LARGE</h3>
-        <br />
-        <v-buttons @click="openModalLarge" label="Modal Large" variant="primary" />
-        <v-modal-large :dialog="showModalLarge" @closeDialog="closeModalLarge"></v-modal-large>
-        <br />
-        <br />
-        <h3>TABLE</h3>
-        <br />
-        <v-table-action></v-table-action>
-        <br />
-        <h3>CARD APP</h3>
-        <br />
-        <div class="cardapp-container">
-            <v-card-app v-for="(card, index) in cards" :key="index" :imageUrl="card.imageUrl"
-                :description="card.description" :channel="card.channels" :time="card.time"
-                :title="card.title"></v-card-app>
+        <!-- TABLE -->
+        <div class="table-container item-spacing">
+            <div class="mb-2">
+                <h3>TABLE</h3>
+            </div>
+            <div>
+                <v-table-action></v-table-action>
+            </div>
+        </div>
+        <!-- MODAL -->
+        <div class="modal-container item-spacing">
+            <div class="mb-2">
+                <h3>MODAL</h3>
+            </div>
+            <div>
+                <v-buttons @click="openModalLarge" label="Modal Large" variant="primary" />
+            </div>
+        </div>
+        <!-- MODAL-CONDITION -->
+        <div class="modal-conditional-container item-spacing">
+            <div class="mb-2">
+                <h3>MODAL CONDITION</h3>
+            </div>
+            <div class="d-flex">
+                <div class="mr-5">
+                    <h4 class="mb-2">Simple Modal</h4>
+                    <v-buttons @click="openModalCondition" label="Modal Condition" variant="primary" />
+                </div>
+                <div>
+                    <h4 class="mb-2">Alert Modal</h4>
+                    <v-buttons @click="openModalCondition_alert" label="Modal Condition" variant="warning" />
+                </div>
+
+            </div>
+        </div>
+        <!--CLICKABLE-CARD -->
+        <div class="clickable-card-container item-spacing">
+            <div class="mb-2">
+                <h3>CLICKABLE CARD</h3>
+            </div>
+            <div class="d-flex mb-4">
+                <v-card-clickable :title="'Setup Other Channels'"
+                    :description="'Ipsum odit eveniet sed architecto laboriosam cum dolore.'"
+                    @cardClicked="openCardModal_Condition"
+                    :cardHeight="'255px'" :cardWidth="'363px'" :fontColor="'white'" :backgroundColor="'#DA4175'"
+                    ></v-card-clickable>
+                    <v-card-clickable :title="'Setup Other Channels'"
+                    :description="'Ipsum odit eveniet sed architecto laboriosam cum dolore.'"
+                    @cardClicked="openCardModal_Condition" class="ml-5"
+                    :cardHeight="'255px'" :cardWidth="'363px'" :fontColor="'#0062A8'" :backgroundColor="'#18E2CE'"
+                    ></v-card-clickable>
+            </div>
+            <div class="d-flex mb-4">
+                <v-card-clickable :title="'Setup Other Channels'"
+                    :description="'Ipsum odit eveniet sed architecto laboriosam cum dolore.'"
+                    @cardClicked="openCardModal_Condition"
+                    :cardHeight="'255px'" :cardWidth="'492px'" :fontColor="'#992E52'" :backgroundColor="'#FFB838'"
+                    ></v-card-clickable>
+                    <v-card-clickable :title="'Setup Other Channels'"
+                    :description="'Ipsum odit eveniet sed architecto laboriosam cum dolore.'"
+                    @cardClicked="openCardModal_Condition" class="ml-5"
+                    :cardHeight="'255px'" :cardWidth="'234px'" :fontColor="'white'" :backgroundColor="'#6D3D91'"
+                    ></v-card-clickable>
+            </div>
+        </div>
+        <!--CARD BANNER -->
+        <div class="card-banner-container item-spacing">
+            <div class="mb-2">
+                <h3>CARD BANNER</h3>
+            </div>
+            <div>
+                <v-card-button></v-card-button>
+            </div>
+        </div>
+        <!--CARD APPS -->
+        <div class="card-apps-container item-spacing">
+            <div class="mb-2">
+                <h3>CARD APPS</h3>
+            </div>
+            <div class="cardapp-container">
+                <v-card-app v-for="(card, index) in cards" :key="index" :imageUrl="card.imageUrl"
+                    :description="card.description" :channel="card.channels" :time="card.time" :title="card.title"
+                    @cardClicked="openCardModal"></v-card-app>
+            </div>
+        </div>
+        <!--STEPPER -->
+        <div class="stepper-container item-spacing">
+            <div class="mb-2">
+                <h3>STEPPER</h3>
+            </div>
+            <div>
+
+            </div>
         </div>
 
-        <br />
-        <h3>CARD</h3>
-        <!-- <v-card-custom></v-card-custom> -->
+        <!-- MODAL COMPONENT HERE -->
+        <v-modal-large :dialog="showModalLarge" @closeDialog="closeModalLarge"></v-modal-large>
+        <v-modal-condition :dialog="showModalCondition" @closeDialog="closeModalCondition" @onYes="closeModalCondition"
+            @onNo="closeModalCondition"></v-modal-condition>
+        <v-modal-condition :dialog="showModalCondition_alert" @closeDialog="closeModalCondition_alert"
+            @onYes="closeModalCondition_alert" @onNo="closeModalCondition_alert" :isAlert="true"></v-modal-condition>
     </div>
 </template>
 <script>
@@ -33,14 +112,17 @@ import doctalScheduler from '@assets/icons/card-icons/doctal-scheduler.svg';
 import formed from '@assets/icons/card-icons/formed.svg';
 import secureFrame from '@assets/icons/card-icons/secure-frame.svg';
 import visualizeeAi from '@assets/icons/card-icons/visualizee-ai.svg';
+import VCardClickable from '../components/cardapp/VCardClickable.vue';
 
 export default {
     components: {
-
+        VCardClickable
     },
     data() {
         return {
             showModalLarge: false,
+            showModalCondition_alert: false,
+            showModalCondition: false,
             cards: [
                 {
                     "imageUrl": formed,
@@ -105,11 +187,29 @@ export default {
         };
     },
     methods: {
+        openModalCondition() {
+            this.showModalCondition = true;
+        },
+        closeModalCondition() {
+            this.showModalCondition = false;
+        },
+        openModalCondition_alert() {
+            this.showModalCondition_alert = true;
+        },
+        closeModalCondition_alert() {
+            this.showModalCondition_alert = false;
+        },
         openModalLarge() {
             this.showModalLarge = true;
         },
         closeModalLarge() {
             this.showModalLarge = false;
+        },
+        openCardModal() {
+            alert("Hey, you clicked me at card app!");
+        },
+        openCardModal_Condition() {
+            alert("Hey, you clicked me at card condition!");
         }
     }
 }
@@ -124,5 +224,9 @@ export default {
         margin-bottom: 20px;
         margin-right: 20px;
     }
+}
+
+.item-spacing {
+    margin: 30px 0;
 }
 </style>

@@ -90,7 +90,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+
 .stepper {
   padding: 30px;
   display: flex;
