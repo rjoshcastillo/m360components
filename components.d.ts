@@ -26,6 +26,7 @@ declare module 'vue' {
     VMain: typeof import('vuetify/lib')['VMain']
     VRow: typeof import('vuetify/lib')['VRow']
     VStepper: typeof import('./src/components/stepper/VStepper.vue')['default']
+    VStepperComp: typeof import('./src/components/stepper/VStepperComp.vue')['default']
     VSwitch: typeof import('vuetify/lib')['VSwitch']
     VTextField: typeof import('vuetify/lib')['VTextField']
   }
