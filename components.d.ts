@@ -15,12 +15,17 @@ declare module 'vue' {
     VButtons: typeof import('./src/components/buttons/VButtons.vue')['default']
     VCard: typeof import('vuetify/lib')['VCard']
     VCardApp: typeof import('./src/components/cardapp/VCardApp.vue')['default']
+<<<<<<< Updated upstream
     VCardButton: typeof import('./src/components/cardapp/VCardButton.vue')['default']
     VCardClickable: typeof import('./src/components/cardapp/VCardClickable.vue')['default']
+=======
+    VCardText: typeof import('vuetify/lib')['VCardText']
+>>>>>>> Stashed changes
     VCol: typeof import('vuetify/lib')['VCol']
     VContainer: typeof import('vuetify/lib')['VContainer']
     VDialog: typeof import('vuetify/lib')['VDialog']
     VDivider: typeof import('vuetify/lib')['VDivider']
+    VFeedBack: typeof import('./src/components/feedback/VFeedBack.vue')['default']
     VForm: typeof import('vuetify/lib')['VForm']
     VIcon: typeof import('vuetify/lib')['VIcon']
     VImg: typeof import('vuetify/lib')['VImg']
@@ -32,7 +37,12 @@ declare module 'vue' {
     VSimpleTable: typeof import('vuetify/lib')['VSimpleTable']
     VStepperComp: typeof import('./src/components/stepper/VStepperComp.vue')['default']
     VSwitch: typeof import('vuetify/lib')['VSwitch']
+    VTab: typeof import('vuetify/lib')['VTab']
+    VTabItem: typeof import('vuetify/lib')['VTabItem']
     VTableAction: typeof import('./src/components/tables/VTableAction.vue')['default']
+    VTabs: typeof import('vuetify/lib')['VTabs']
+    VTabsItems: typeof import('vuetify/lib')['VTabsItems']
+    VTabsSlider: typeof import('vuetify/lib')['VTabsSlider']
     VToast: typeof import('./src/components/toasts/VToast.vue')['default']
   }
 }
