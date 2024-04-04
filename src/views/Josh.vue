@@ -238,7 +238,7 @@
           Text: {{ textValue }}
         </h2>
         <h2 style="background-color: bisque; font-size: 32px" class="mt-4">
-          Has error: {{ hasError }}
+          Error: {{ hasError }}
         </h2>
       </div>
     </div>
