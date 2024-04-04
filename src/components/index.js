@@ -4,6 +4,7 @@ import camelCase from "lodash/camelCase";
 
 const requireButtons = require.context("./buttons", false, /_[A-Z]\w+\.(vue)$/);
 const requireInputField = require.context('./inputs', false, /_[A-Z]\w+\.(vue)$/);
+const requireToasts = require.context('./toasts', false, /_[A-Z]\w+\.(vue)$/);
 // const requireCards = require.context('./cards', false, /_[A-Z]\w+\.(vue)$/);
 const requireCardapp = require.context('./cardapp', false, /_[A-Z]\w+\.(vue)$/);
 const requireTableAction = require.context('./tables', false, /_[A-Z]\w+\.(vue)$/);
@@ -41,6 +42,14 @@ requireCardapp.keys().forEach((fileName) => {
 });
 requireModal.keys().forEach((fileName) => {
   const componentConfig = requireModal(fileName);
+  const componentName = upperFirst(
+    camelCase(fileName.replace(/^\.\/(.*)\.\w+$/, '$1')),
+  );
+  Vue.component(componentName, componentConfig.default || componentConfig);
+});
+
+requireToasts.keys().forEach((fileName) => {
+  const componentConfig = requireToasts(fileName);
   const componentName = upperFirst(
     camelCase(fileName.replace(/^\.\/(.*)\.\w+$/, '$1')),
   );

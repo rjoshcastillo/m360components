@@ -31,5 +31,6 @@ declare module 'vue' {
     VStepperComp: typeof import('./src/components/stepper/VStepperComp.vue')['default']
     VSwitch: typeof import('vuetify/lib')['VSwitch']
     VTableAction: typeof import('./src/components/tables/VTableAction.vue')['default']
+    VToast: typeof import('./src/components/toasts/VToast.vue')['default']
   }
 }

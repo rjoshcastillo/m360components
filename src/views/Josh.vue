@@ -98,19 +98,19 @@
           <v-row>
             <!-- First Column -->
             <v-col cols="12" sm="4">
-              <v-input-field-v2
+              <v-input-field
                 @input="inputValue"
                 @inputError="inputError"
                 type="text"
                 label="Workspace Name"
                 placeholder="Enter workspace name"
               >
-              </v-input-field-v2>
+              </v-input-field>
             </v-col>
 
             <!-- Second Column -->
             <v-col cols="12" sm="4">
-              <v-input-field-v2
+              <v-input-field
                 @input="inputValue"
                 @inputError="inputError"
                 type="text"
@@ -119,12 +119,12 @@
                 placeholder="Enter workspace name"
                 required
               >
-              </v-input-field-v2>
+              </v-input-field>
             </v-col>
 
             <!-- Third Column -->
             <v-col cols="12" sm="4">
-              <v-input-field-v2
+              <v-input-field
                 @input="inputValue"
                 @inputError="inputError"
                 type="text"
@@ -132,13 +132,13 @@
                 appendIcon="mdi-chevron-down"
                 placeholder="Enter workspace name"
               >
-              </v-input-field-v2>
+              </v-input-field>
             </v-col>
           </v-row>
           <v-row>
             <!-- First Column -->
             <v-col cols="12" sm="4">
-              <v-input-field-v2
+              <v-input-field
                 @input="inputValue"
                 @inputError="inputError"
                 type="text"
@@ -147,12 +147,12 @@
                 appendIcon="mdi-chevron-down"
                 placeholder="Enter workspace name"
               >
-              </v-input-field-v2>
+              </v-input-field>
             </v-col>
 
             <!-- Second Column -->
             <v-col cols="12" sm="4">
-              <v-input-field-v2
+              <v-input-field
                 @input="inputValue"
                 @inputError="inputError"
                 type="text"
@@ -162,12 +162,12 @@
                 appendIcon="mdi-chevron-down"
                 placeholder="Enter workspace name"
               >
-              </v-input-field-v2>
+              </v-input-field>
             </v-col>
 
             <!-- Third Column -->
             <v-col cols="12" sm="4">
-              <v-input-field-v2
+              <v-input-field
                 value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                 @input="inputValue"
                 @inputError="inputError"
@@ -179,13 +179,13 @@
                 placeholder="Enter workspace name"
                 maxChar="10"
               >
-              </v-input-field-v2>
+              </v-input-field>
             </v-col>
           </v-row>
           <v-row>
             <!-- First Column -->
             <v-col cols="12" sm="4">
-              <v-input-field-v2
+              <v-input-field
                 :value="'This is a default value'"
                 @input="inputValue"
                 @inputError="inputError"
@@ -198,12 +198,12 @@
                 maxChar="50"
                 required
               >
-              </v-input-field-v2>
+              </v-input-field>
             </v-col>
 
             <!-- Second Column -->
             <v-col cols="12" sm="4">
-              <v-input-field-v2
+              <v-input-field
                 type="password"
                 @input="inputValue"
                 @inputError="inputError"
@@ -213,12 +213,12 @@
                 placeholder="Enter password"
                 required
               >
-              </v-input-field-v2>
+              </v-input-field>
             </v-col>
 
             <!-- Third Column -->
             <v-col cols="12" sm="4">
-              <v-input-field-v2
+              <v-input-field
                 @input="inputValue"
                 @inputError="inputError"
                 type="email"
@@ -228,7 +228,7 @@
                 placeholder="Enter your email"
                 required
               >
-              </v-input-field-v2>
+              </v-input-field>
             </v-col>
           </v-row>
         </v-container>
@@ -242,9 +242,26 @@
         </h2>
       </div>
     </div>
+    <div>
+      <!-- TOAST -->
+      <br />
+      <h3>TOASTS</h3>
+      <br />
+      <v-buttons label="Show Success Toast" @click="showSuccessToast" />
+
+      <v-buttons label="Show Error Toast" @click="showErrorToast" />
+
+      <v-buttons label="Show Warning Toast" @click="showWarningToast" />
+      <v-toast top center></v-toast>
+    </div>
+
+    <br />
+    <h3>TABS</h3>
+    <br />
   </div>
 </template>
 <script>
+import { eventBus } from "../utils/event-bus";
 export default {
   data() {
     return {
@@ -255,6 +272,26 @@ export default {
   },
 
   methods: {
+    showSuccessToast() {
+      eventBus.$emit("showSnackbar", {
+        message: "SUCCESS TOAST",
+        type: "_SUCCESS", //_ERROR _WARNING,
+      });
+    },
+
+    showErrorToast() {
+      eventBus.$emit("showSnackbar", {
+        message: "SUCCESS TOAST",
+        type: "_ERROR", //_ERROR _WARNING,
+      });
+    },
+
+    showWarningToast() {
+      eventBus.$emit("showSnackbar", {
+        message: "SUCCESS TOAST",
+        type: "_WARNING", //_ERROR _WARNING,
+      });
+    },
     inputError(value) {
       this.hasError = value;
     },
