@@ -45,15 +45,16 @@ import debounce from "lodash.debounce";
 
 export default {
   props: {
-    value: { /* FOR DEFAULT VALUE OF TEXTFIELD */
-      type: String,
+    value: {
+      /* FOR DEFAULT VALUE OF TEXTFIELD */ type: String,
       default: "",
     },
-    maxChar: { /* FOR MAX CHARACTER LENGHT OF TEXTFIELD */
-      type: String,
+    maxChar: {
+      /* FOR MAX CHARACTER LENGHT OF TEXTFIELD */ type: String,
       required: false,
     },
-    required: { /* IF THE FIELD IS REQUIRED, WILL RESULT TO ERROR IF TEXT IS EMPTY */
+    required: {
+      /* IF THE FIELD IS REQUIRED, WILL RESULT TO ERROR IF TEXT IS EMPTY */
       type: Boolean,
       required: false,
     },
@@ -65,7 +66,7 @@ export default {
       type: String,
       required: true,
     },
-    type: "", /* text, email and password */
+    type: "" /* text, email and password */,
     placeholder: "",
     prependIcon: "",
     appendIcon: "",
@@ -84,18 +85,8 @@ export default {
     focusInput() {
       this.$refs.textInput.focus();
     },
-    checkInputValue: debounce(function (value) {
-      if (this.type === "email" && this.model && !this.pattern.test(value)) {
-        this.errorText = "Invalid Email";
-        return;
-      }
-      if (value) {
-        this.errorText = null;
-        return;
-      }
-    }, 300),
 
-    validateRules() {
+    trimInput() {
       const maxLength = parseInt(this.maxChar);
       const target = this.$refs.textInput;
       let value = target.value;
@@ -103,27 +94,44 @@ export default {
       if (value.length > maxLength) {
         value = value.slice(0, maxLength);
       }
+       this.model = value;
+    },
 
-      this.model = value;
-      this.checkInputValue(value);
+    validateInput(value) {
+      if (this.type === "email" && value && !this.pattern.test(value)) {
+        this.errorText = "Invalid Email";
+      } else if (!value && this.required) {
+        this.errorText = "Required.";
+      } else {
+        this.errorText = null;
+      }
+      this.emitInputError();
     },
+
     handleInput() {
-      this.validateRules();
-      this.$emit('input', this.model);
+      this.trimInput();
+      this.debounceValidateInput(this.model);
     },
+
+    emitInputError() {
+      if(this.errorText) {
+        this.$emit('inputError', true);
+        return;
+      }
+      this.$emit('inputError', false)
+    }
   },
 
   mounted() {
-    this.validateRules();
+    this.trimInput();
+    this.debounceValidateInput = debounce(this.validateInput, 300);
 
     this.$refs.textInput.addEventListener("focus", () => {
       this.isFocus = true;
     });
     this.$refs.textInput.addEventListener("blur", () => {
       this.isFocus = false;
-      if (!this.model && this.required) {
-        this.errorText = "Required.";
-      }
+      this.validateInput();
     });
   },
 };

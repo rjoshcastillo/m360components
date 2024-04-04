@@ -135,7 +135,7 @@
             <!-- First Column -->
             <v-col cols="12" sm="4">
               <v-input-field-v2
-               @input="inputValue"
+                @input="inputValue"
                 type="text"
                 label="Workspace Name"
                 prependIcon="mdi-email-outline"
@@ -162,6 +162,7 @@
             <!-- Third Column -->
             <v-col cols="12" sm="4">
               <v-input-field-v2
+                value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                 @input="inputValue"
                 type="text"
                 hintText="What's the hint?"
@@ -169,7 +170,7 @@
                 prependIcon="mdi-email-outline"
                 appendIcon="mdi-chevron-down"
                 placeholder="Enter workspace name"
-                maxChar="20"
+                maxChar="10"
               >
               </v-input-field-v2>
             </v-col>
@@ -209,6 +210,7 @@
             <v-col cols="12" sm="4">
               <v-input-field-v2
                 @input="inputValue"
+                @inputError="inputError"
                 type="email"
                 hintText="What's the hint?"
                 label="Email"
@@ -221,9 +223,14 @@
           </v-row>
         </v-container>
       </v-form>
-      <h2 style="background-color: bisque; font-size: 32px" class="mt-4">
-        Text: {{ textValue }}
-      </h2>
+      <div class="d-flex">
+        <h2 style="background-color: bisque; font-size: 32px" class="mt-4 mr-4">
+          Text: {{ textValue }}
+        </h2>
+        <h2 style="background-color: bisque; font-size: 32px" class="mt-4">
+          Has error: {{ hasError }}
+        </h2>
+      </div>
     </div>
   </div>
 </template>
@@ -232,15 +239,19 @@ export default {
   data() {
     return {
       count: 0,
-      textValue: '',
-    }
+      textValue: "",
+      hasError: false,
+    };
   },
 
   methods: {
+    inputError(value) {
+      this.hasError = value;
+    },
     inputValue(value) {
       this.textValue = value;
-    }
+    },
   },
-}
+};
 </script>
 <style></style>
