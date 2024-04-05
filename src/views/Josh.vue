@@ -257,6 +257,7 @@
 
     <br />
     <h3>TABS</h3>
+    <v-tabs></v-tabs>
     <br />
   </div>
 </template>
