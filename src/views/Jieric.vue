@@ -71,7 +71,7 @@
                 <h3>CARD BANNER</h3>
             </div>
             <div>
-                <v-card-button></v-card-button>
+                <v-card-button @cardClicked="openCardButtonModal"></v-card-button>
             </div>
         </div>
         <!--CARD APPS -->
@@ -210,7 +210,10 @@ export default {
         },
         openCardModal_Condition() {
             alert("Hey, you clicked me at card condition!");
-        }
+        },
+        openCardButtonModal() {
+            alert("Hey, you clicked me at card button!");
+        },
     }
 }
 </script>
