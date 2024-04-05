@@ -90,12 +90,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .stepper {
   padding: 30px;
   display: flex;
   flex-direction: column;
-  align-items: space-between;
+  align-items: center;
   width: 100%;
   border: 1px solid black;
 }
@@ -104,7 +104,7 @@ export default {
   flex-direction: row;
   width: 100%;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 .header-content {
   display: flex;
@@ -121,8 +121,8 @@ export default {
   flex-direction: column;
 
   border: 2px solid black;
-  box-shadow: 0px 2px 15px 0px #000005;
   border-radius: 5%;
+  margin-left: 20px;
 }
 
 .step-active {
@@ -133,8 +133,8 @@ export default {
   flex-direction: column;
 
   border: 2px solid black;
-  box-shadow: 0px 2px 15px 0px #000005;
   border-radius: 5%;
+  margin-left: 20px;
 }
 .step-inactive {
   font-weight: bold 2px;
@@ -144,8 +144,8 @@ export default {
   flex-direction: column;
 
   border: 2px solid black;
-  box-shadow: 0px 2px 15px 0px #000005;
   border-radius: 5%;
+  margin-left: 20px;
 }
 .step-active .stepItem {
   background: #008df0;

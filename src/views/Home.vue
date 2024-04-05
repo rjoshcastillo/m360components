@@ -8,7 +8,6 @@
       <Josh />
     </div>
     <div>
-      <h1>Progress - Junryl</h1>
       <Junryl />
     </div>
     <div>
