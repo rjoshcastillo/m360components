@@ -99,6 +99,11 @@ export default {
           borderColor: "#E8E8E8",
           fontColor: "#151C36",
         },
+        warning: {
+          backgroundColor: "#EB2D2D",
+          borderColor: "#EB2D2D",
+          fontColor: "#FFFFF",
+        }
       };
 
       this.styles = Object.assign(

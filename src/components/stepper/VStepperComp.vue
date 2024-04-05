@@ -1,7 +1,7 @@
 <!-- stepper.vue -->
 <template>
   <div class="stepper">
-    <div class="header">
+    <div class="stepper-header">
       <div
         v-for="(step, index) in steps"
         :key="index"
@@ -90,7 +90,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .stepper {
   padding: 30px;
   display: flex;
@@ -99,12 +99,13 @@ export default {
   width: 100%;
   border: 1px solid black;
 }
-.header {
+.stepper-header {
   display: flex;
   flex-direction: row;
   width: 100%;
   align-items: center;
   justify-content: center;
+  gap: 10px;
 }
 .header-content {
   display: flex;
@@ -122,7 +123,6 @@ export default {
 
   border: 2px solid black;
   border-radius: 5%;
-  margin-left: 20px;
 }
 
 .step-active {
@@ -134,7 +134,6 @@ export default {
 
   border: 2px solid black;
   border-radius: 5%;
-  margin-left: 20px;
 }
 .step-inactive {
   font-weight: bold 2px;
@@ -145,7 +144,6 @@ export default {
 
   border: 2px solid black;
   border-radius: 5%;
-  margin-left: 20px;
 }
 .step-active .stepItem {
   background: #008df0;

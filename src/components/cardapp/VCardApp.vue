@@ -12,7 +12,7 @@
       </div>
 
       <div class="d-flex align-center chevron-button">
-        <v-icon color="#008DF0">mdi-chevron-right</v-icon>
+        <v-icon @click="$emit('cardClicked')" color="#008DF0">mdi-chevron-right</v-icon>
       </div>
     </div>
     <v-divider></v-divider>
