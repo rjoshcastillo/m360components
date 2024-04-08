@@ -242,11 +242,25 @@
         </h2>
       </div>
     </div>
-    <div>
+
+    <br />
+    <h3>INLINE FEEDBACK</h3>
+    <br />
+    <div style="display: flex; gap: 10px">
+      <v-buttons label="Show success feedback" @click="showSuccessFeedback" />
+      <v-buttons label="Show error feedback" @click="showErrorFeedback" />
+      <v-buttons label="Show info feedback" @click="showInfoFeedback" />
+      <v-buttons label="Show warning feedback" @click="showWarningFeedback" />
+    </div>
+    <br />
+    <v-feed-back></v-feed-back>
+    <br />
+
+    <br />
+    <h3>TOASTS</h3>
+    <br />
+    <div style="display: flex; gap: 20px">
       <!-- TOAST -->
-      <br />
-      <h3>TOASTS</h3>
-      <br />
       <v-buttons label="Show Success Toast" @click="showSuccessToast" />
 
       <v-buttons label="Show Error Toast" @click="showErrorToast" />
@@ -273,6 +287,31 @@ export default {
   },
 
   methods: {
+    showSuccessFeedback() {
+      eventBus.$emit("showFeedback", {
+        message: "It seems like you have not yet registered for an account. Please click on sign up now.",
+        type: "success", //_ERROR _WARNING,
+      });
+    },
+    showErrorFeedback() {
+      eventBus.$emit("showFeedback", {
+        message: "It seems like you have not yet registered for an account. Please click on sign up now.",
+        type: "error", //_ERROR _WARNING,
+      });
+    },
+    showInfoFeedback() {
+      eventBus.$emit("showFeedback", {
+        message: "It seems like you have not yet registered for an account. Please click on sign up now.",
+        type: "info", //_ERROR _WARNING,
+      });
+    },
+    showWarningFeedback() {
+      eventBus.$emit("showFeedback", {
+        message: "Warning.",
+        type: "warning", //_ERROR _WARNING,
+      });
+    },
+
     showSuccessToast() {
       eventBus.$emit("showSnackbar", {
         message: "SUCCESS TOAST",
@@ -282,14 +321,14 @@ export default {
 
     showErrorToast() {
       eventBus.$emit("showSnackbar", {
-        message: "SUCCESS TOAST",
+        message: "ERROR TOAST",
         type: "_ERROR", //_ERROR _WARNING,
       });
     },
 
     showWarningToast() {
       eventBus.$emit("showSnackbar", {
-        message: "SUCCESS TOAST",
+        message: "WARNING TOAST",
         type: "_WARNING", //_ERROR _WARNING,
       });
     },

@@ -75,9 +75,7 @@
     methods: {
       closeSnackbar() {
         this.show = false;
-      },
-  
-      
+      },  
     }
   }
   </script>
