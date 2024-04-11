@@ -6,7 +6,7 @@
                 <h3>TABLE</h3>
             </div>
             <div>
-                <v-table-action></v-table-action>
+                <v-table-action :headers="tableHeader" :items="tableData" :hideColumn="hideColumn"></v-table-action>
             </div>
         </div>
         <!-- MODAL -->
@@ -43,26 +43,22 @@
             <div class="d-flex mb-4">
                 <v-card-clickable :title="'Setup Other Channels'"
                     :description="'Ipsum odit eveniet sed architecto laboriosam cum dolore.'"
-                    @cardClicked="openCardModal_Condition"
-                    :cardHeight="'255px'" :cardWidth="'363px'" :fontColor="'white'" :backgroundColor="'#DA4175'"
-                    ></v-card-clickable>
-                    <v-card-clickable :title="'Setup Other Channels'"
+                    @cardClicked="openCardModal_Condition" :cardHeight="'255px'" :cardWidth="'363px'"
+                    :fontColor="'white'" :backgroundColor="'#DA4175'"></v-card-clickable>
+                <v-card-clickable :title="'Setup Other Channels'"
                     :description="'Ipsum odit eveniet sed architecto laboriosam cum dolore.'"
-                    @cardClicked="openCardModal_Condition" class="ml-5"
-                    :cardHeight="'255px'" :cardWidth="'363px'" :fontColor="'#0062A8'" :backgroundColor="'#18E2CE'"
-                    ></v-card-clickable>
+                    @cardClicked="openCardModal_Condition" class="ml-5" :cardHeight="'255px'" :cardWidth="'363px'"
+                    :fontColor="'#0062A8'" :backgroundColor="'#18E2CE'"></v-card-clickable>
             </div>
             <div class="d-flex mb-4">
                 <v-card-clickable :title="'Setup Other Channels'"
                     :description="'Ipsum odit eveniet sed architecto laboriosam cum dolore.'"
-                    @cardClicked="openCardModal_Condition"
-                    :cardHeight="'255px'" :cardWidth="'492px'" :fontColor="'#992E52'" :backgroundColor="'#FFB838'"
-                    ></v-card-clickable>
-                    <v-card-clickable :title="'Setup Other Channels'"
+                    @cardClicked="openCardModal_Condition" :cardHeight="'255px'" :cardWidth="'492px'"
+                    :fontColor="'#992E52'" :backgroundColor="'#FFB838'"></v-card-clickable>
+                <v-card-clickable :title="'Setup Other Channels'"
                     :description="'Ipsum odit eveniet sed architecto laboriosam cum dolore.'"
-                    @cardClicked="openCardModal_Condition" class="ml-5"
-                    :cardHeight="'255px'" :cardWidth="'234px'" :fontColor="'white'" :backgroundColor="'#6D3D91'"
-                    ></v-card-clickable>
+                    @cardClicked="openCardModal_Condition" class="ml-5" :cardHeight="'255px'" :cardWidth="'234px'"
+                    :fontColor="'white'" :backgroundColor="'#6D3D91'"></v-card-clickable>
             </div>
         </div>
         <!--CARD BANNER -->
@@ -120,6 +116,7 @@ export default {
     },
     data() {
         return {
+            hideColumn: ['test', 'nation'],
             showModalLarge: false,
             showModalCondition_alert: false,
             showModalCondition: false,
@@ -181,9 +178,81 @@ export default {
                     "channels": ["messenger", "instagram", "viber", "whatsapp"]
                 },
             ],
-            table: [
-
-            ]
+            tableHeader: [
+                {
+                    text: 'Name',
+                    class: '',
+                    sortable: true,
+                    type: 'name',
+                },
+                {
+                    text: 'Test',
+                    class: '',
+                    sortable: true,
+                    type: 'test',
+                },
+                {
+                    text: 'Gem',
+                    class: '',
+                    sortable: true,
+                    type: 'nation',
+                },
+                {
+                    text: 'Channels',
+                    class: '',
+                    type: 'channel',
+                },
+                {
+                    text: 'Last Active',
+                    class: '',
+                    sortable: true,
+                    type: 'last_active',
+                },
+                {
+                    text: 'Status',
+                    class: '',
+                    sortable: true,
+                    type: 'status',
+                },
+                {
+                    text: 'Action',
+                    class: '',
+                    action_enable: true,
+                    type: 'action'
+                },
+            ],
+            tableData: [{
+                id: 1,
+                name: 'Dog Trainer',
+                channel: '2 minutes ago',
+                last_active: '22 hours ago',
+                status: 'Completed'
+            },
+            {
+                id: 2,
+                name: 'Web Designer',
+                channel: '3 days ago',
+                last_active: '10 minutes ago',
+                status: 'Completed'
+            },
+            {
+                id: 3,
+                name: 'Medical Assistant',
+                channel: '12 hours ago',
+                last_active: '12 hours ago',
+                status: 'Ongoing',
+                test: 'sample'
+            },
+            {
+                id: 4,
+                name: 'Marketing Coordinator',
+                channel: '2 minutes ago',
+                last_active: '2 hours ago',
+                status: 'Completed',
+                nation: 'test'
+            },
+        
+        ]
         };
     },
     methods: {

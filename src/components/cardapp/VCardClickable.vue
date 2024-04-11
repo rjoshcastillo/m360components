@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="card-main">
         <v-card @click="$emit('cardClicked')" class="card-container" :style="{
             backgroundColor: backgroundColor,
             width: cardWidth,
@@ -72,6 +72,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.card-main{
+    overflow: hidden;
+}
 .card-container {
     padding: 24px;
     border-radius: 8px;
