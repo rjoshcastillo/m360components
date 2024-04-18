@@ -216,6 +216,14 @@ export default {
                     field: 'name',
                     order: SortOrder.ASC,
                 },
+                {
+                    field: 'last_active',
+                    order: SortOrder.ASC,
+                },
+                {
+                    field: 'status',
+                    order: SortOrder.ASC,
+                }
             ]
         };
     },
@@ -248,25 +256,40 @@ export default {
             alert("Hey, you clicked me at card button!");
         },
         updateSorterColumn(sorterResult) {
-            let sorterColumns = [...this.sorterColumns];
+            const sorterColumns = [...this.sorterColumns];
 
-            if (!!sorterResult.order) {
-                sorterColumns = sorterColumns.filter((sc) => sc.field !== sorterResult.field);
+            // Check if the field is already in the sorterColumns array
+            const index = sorterColumns.findIndex((sc) => sc.field === sorterResult.field);
 
-                sorterColumns = [sorterResult, ...sorterColumns];
+            if (index !== -1) {
+                // If the field is already in the sorterColumns array, toggle the sorting order
+                const currentOrder = sorterColumns[index].order;
+                if (currentOrder === 'asc') {
+                    sorterColumns[index].order = 'desc';
+                } else if (currentOrder === 'desc') {
+                    sorterColumns[index].order = 'asc';
+                }
             } else {
-                sorterColumns = sorterColumns.reduce((res, sc) => {
-                    if (sorterResult.field === sc.field) sc.order = sorterResult.order;
-                    res.push(sc);
-                    return res;
-                }, []);
+                // If the field is not in the sorterColumns array, add it with ascending order
+                sorterColumns.unshift(sorterResult);
             }
 
-            const sorter = sorterColumns.filter((sc) => !!sc.order);
-            const notSorter = sorterColumns.filter((sc) => !sc.order);
+            // Sort the tableData based on the updated sorting criteria
+            this.tableData.sort((a, b) => {
+                // Iterate through each sorting criteria
+                for (const { field, order } of sorterColumns) {
+                    // Compare the values of the field in each item
+                    if (a[field] < b[field]) return order === 'asc' ? -1 : 1;
+                    if (a[field] > b[field]) return order === 'asc' ? 1 : -1;
+                }
+                // If all criteria are equal, return 0
+                return 0;
+            });
 
-            this.sorterColumns = [...sorter, ...notSorter];
-        },
+            // Emit the sorted column to update the UI if needed
+            this.$emit('onChangeSort', sorterColumns[0]);
+        }
+
     },
     computed: {
         tableHeader() {
@@ -281,18 +304,6 @@ export default {
                     sorterIndex: this.sorterColumns.findIndex((sc) => sc.field === 'name'),
                 },
                 {
-                    text: 'Test',
-                    class: '',
-                    sortable: true,
-                    type: 'test',
-                },
-                {
-                    text: 'Gem',
-                    class: '',
-                    sortable: true,
-                    type: 'nation',
-                },
-                {
                     text: 'Channels',
                     class: '',
                     type: 'channel',
@@ -302,12 +313,18 @@ export default {
                     class: '',
                     sortable: true,
                     type: 'last_active',
+                    key: 'last_active',
+                    sortOrder: this.sorterColumns.find((sc) => sc.field === 'last_active')?.order,
+                    sorterIndex: this.sorterColumns.findIndex((sc) => sc.field === 'last_active'),
                 },
                 {
                     text: 'Status',
                     class: '',
                     sortable: true,
                     type: 'status',
+                    key: 'status',
+                    sortOrder: this.sorterColumns.find((sc) => sc.field === 'status')?.order,
+                    sorterIndex: this.sorterColumns.findIndex((sc) => sc.field === 'status'),
                 },
                 {
                     text: 'Action',
