@@ -101,11 +101,19 @@ export default {
         handleColHeaderClick(columnHeader) {
             if (!columnHeader.sortable) return;
 
-            const sortOrder = columnHeader.sortOrder === 'asc' ? 'desc' : 'asc';
+            const sorterResult = { field: columnHeader.key, order: 'asc' };
 
-            const sorterResult = { field: columnHeader.key, order: sortOrder };
-
-            this.$emit('onChangeSort', sorterResult);
+            switch (columnHeader.sortOrder) {
+                case 'asc':
+                    this.$emit('onChangeSort', { ...sorterResult, order: 'desc' });
+                    break;
+                case 'desc':
+                    this.$emit('onChangeSort', { ...sorterResult, order: undefined });
+                    break;
+                default:
+                    this.$emit('onChangeSort', sorterResult);
+                    break;
+            }
         },
     }
 }
@@ -150,5 +158,9 @@ tr {
     font-weight: 500;
     color: #008DF0;
     cursor: pointer;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 </style>

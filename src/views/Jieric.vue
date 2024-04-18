@@ -6,7 +6,8 @@
                 <h3>TABLE</h3>
             </div>
             <div>
-                <v-table-action :headers="tableHeader" :items="tableData" :hideColumn="hideColumn"></v-table-action>
+                <v-table-action :headers="tableHeader" :items="tableData" :hideColumn="hideColumn"
+                    @onChangeSort="updateSorterColumn"></v-table-action>
             </div>
         </div>
         <!-- MODAL -->
@@ -109,6 +110,7 @@ import formed from '@assets/icons/card-icons/formed.svg';
 import secureFrame from '@assets/icons/card-icons/secure-frame.svg';
 import visualizeeAi from '@assets/icons/card-icons/visualizee-ai.svg';
 import VCardClickable from '../components/cardapp/VCardClickable.vue';
+import { SortOrder } from './enums';
 
 export default {
     components: {
@@ -178,12 +180,105 @@ export default {
                     "channels": ["messenger", "instagram", "viber", "whatsapp"]
                 },
             ],
-            tableHeader: [
+            tableData: [{
+                id: 1,
+                name: 'Dog Trainer',
+                channel: '2 minutes ago',
+                last_active: '22 hours ago',
+                status: 'Completed'
+            },
+            {
+                id: 2,
+                name: 'Web Designer',
+                channel: '3 days ago',
+                last_active: '10 minutes ago',
+                status: 'Completed'
+            },
+            {
+                'id': 3,
+                'name': 'Medical Assistant',
+                'channel': '12 hours ago',
+                'last_active': '12 hours ago',
+                'status': 'Ongoing',
+                'test': 'sample'
+            },
+            {
+                id: 4,
+                name: 'Marketing Coordinator',
+                channel: '2 minutes ago',
+                last_active: '2 hours ago',
+                status: 'Completed',
+                nation: 'test'
+            },
+            ],
+            sorterColumns: [
+                {
+                    field: 'name',
+                    order: SortOrder.ASC,
+                },
+            ]
+        };
+    },
+    methods: {
+        openModalCondition() {
+            this.showModalCondition = true;
+        },
+        closeModalCondition() {
+            this.showModalCondition = false;
+        },
+        openModalCondition_alert() {
+            this.showModalCondition_alert = true;
+        },
+        closeModalCondition_alert() {
+            this.showModalCondition_alert = false;
+        },
+        openModalLarge() {
+            this.showModalLarge = true;
+        },
+        closeModalLarge() {
+            this.showModalLarge = false;
+        },
+        openCardModal() {
+            alert("Hey, you clicked me at card app!");
+        },
+        openCardModal_Condition() {
+            alert("Hey, you clicked me at card condition!");
+        },
+        openCardButtonModal() {
+            alert("Hey, you clicked me at card button!");
+        },
+        updateSorterColumn(sorterResult) {
+            let sorterColumns = [...this.sorterColumns];
+
+            if (!!sorterResult.order) {
+                sorterColumns = sorterColumns.filter((sc) => sc.field !== sorterResult.field);
+
+                sorterColumns = [sorterResult, ...sorterColumns];
+            } else {
+                sorterColumns = sorterColumns.reduce((res, sc) => {
+                    if (sorterResult.field === sc.field) sc.order = sorterResult.order;
+                    res.push(sc);
+                    return res;
+                }, []);
+            }
+
+            const sorter = sorterColumns.filter((sc) => !!sc.order);
+            const notSorter = sorterColumns.filter((sc) => !sc.order);
+
+            this.sorterColumns = [...sorter, ...notSorter];
+        },
+    },
+    computed: {
+        tableHeader() {
+            return [
                 {
                     text: 'Name',
-                    class: '',
+                    class: 'cursor-pointer',
                     sortable: true,
                     type: 'name',
+                    key: 'name',
+                    sortOrder: this.sorterColumns.find((sc) => sc.field === 'name')?.order,
+                    sorterIndex: this.sorterColumns.findIndex((sc) => sc.field === 'name'),
                 },
                 {
                     text: 'Test',
@@ -220,70 +315,10 @@ export default {
                     action_enable: true,
                     type: 'action'
                 },
-            ],
-            tableData: [{
-                id: 1,
-                name: 'Dog Trainer',
-                channel: '2 minutes ago',
-                last_active: '22 hours ago',
-                status: 'Completed'
-            },
-            {
-                id: 2,
-                name: 'Web Designer',
-                channel: '3 days ago',
-                last_active: '10 minutes ago',
-                status: 'Completed'
-            },
-            {
-                id: 3,
-                name: 'Medical Assistant',
-                channel: '12 hours ago',
-                last_active: '12 hours ago',
-                status: 'Ongoing',
-                test: 'sample'
-            },
-            {
-                id: 4,
-                name: 'Marketing Coordinator',
-                channel: '2 minutes ago',
-                last_active: '2 hours ago',
-                status: 'Completed',
-                nation: 'test'
-            },
-        
-        ]
-        };
+
+            ];
+        },
     },
-    methods: {
-        openModalCondition() {
-            this.showModalCondition = true;
-        },
-        closeModalCondition() {
-            this.showModalCondition = false;
-        },
-        openModalCondition_alert() {
-            this.showModalCondition_alert = true;
-        },
-        closeModalCondition_alert() {
-            this.showModalCondition_alert = false;
-        },
-        openModalLarge() {
-            this.showModalLarge = true;
-        },
-        closeModalLarge() {
-            this.showModalLarge = false;
-        },
-        openCardModal() {
-            alert("Hey, you clicked me at card app!");
-        },
-        openCardModal_Condition() {
-            alert("Hey, you clicked me at card condition!");
-        },
-        openCardButtonModal() {
-            alert("Hey, you clicked me at card button!");
-        },
-    }
 }
 </script>
 <style scoped lang="scss">
