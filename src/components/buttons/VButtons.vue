@@ -1,15 +1,11 @@
 <template>
   <v-btn
-    :ripple="{ class: 'primary--text' }"
+    :ripple="{ class: 'primary--text __custom-ripple' }"
     :height="height"
     :width="width"
     :disabled="disabled"
     :class="`rounded-lg black--text ___button __${variant}`"
-    :style="{
-      backgroundColor: styles.backgroundColor,
-      border: `1px solid ${styles.borderColor}`,
-      transition: 'background-color 0.3s',
-    }"
+    :style="buttonStyle"
     @click.stop="handleClick"
   >
     <div
@@ -18,13 +14,13 @@
         justifyContent: prependIcon || appendIcon ? 'space-between' : 'center',
       }"
     >
-      <v-icon v-if="prependIcon" :color="styles.fontColor"
-        >{{ prependIcon }}
+      <v-icon v-if="prependIcon" :color="styles.iconColor">
+        {{ prependIcon }}
       </v-icon>
       <span :style="{ color: styles.fontColor }" class="btn_label">
         {{ label }}
       </span>
-      <v-icon v-if="appendIcon" :color="styles.fontColor">
+      <v-icon v-if="appendIcon" :color="styles.iconColor">
         {{ appendIcon }}
       </v-icon>
     </div>
@@ -38,83 +34,115 @@ export default {
   data() {
     return {
       user: userStore(),
-      styles: {},
+      styles: {
+        backgroundColor: "",
+        fontColor: "",
+      },
+      variantStyles: {
+        primary: {
+          default: {
+            backgroundColor: userStore().theme.primary,
+            border: `1px solid ${userStore().theme.primary}`,
+            fontColor: "#FFFFFF",
+            iconColor: "#FFFFFF"
+          },
+          clicked: {
+            backgroundColor: "#0062A8",
+            border: `1px solid ${userStore().theme.primary}`,
+            fontColor: "#FFFFFF",
+            iconColor: "#FFFFFF"
+          },
+        },
+        secondary: {
+          default: {
+            backgroundColor: "#E6F4FE",
+            border: `1px solid ${userStore().theme.primary}`,
+            fontColor: userStore().theme.primary,
+            iconColor: userStore().theme.primary
+          },
+          clicked: {
+            backgroundColor: userStore().theme.primary,
+            border: `1px solid ${userStore().theme.primary}`,
+            fontColor: '#FFFFFF',
+            iconColor: '#FFFFFF'
+          },
+        },
+        tertiary: {
+          default: {
+            backgroundColor: "#FFFFFF",
+            border: `1px solid #E8E8E8`,
+            fontColor: "#151C36",
+            iconColor: userStore().theme.primary
+          },
+          clicked: {
+            backgroundColor: userStore().theme.primary,
+            border: `1px solid ${userStore().theme.primary}`,
+            fontColor: '#FFFFFF',
+            iconColor: '#FFFFFF'
+          },
+        },
+        warning: {
+          default: {
+            backgroundColor: "#EB2D2D",
+            border: `1px solid #EB2D2D`,
+            fontColor: "#FFFFFF",
+          },
+          clicked: {},
+        },
+      },
     };
   },
   props: {
-    label: {
-      type: String,
-      required: true,
-    },
-    icon: {
-      type: String,
-      required: false,
-    },
-    appendIcon: {
-      type: String,
-      required: false,
-    },
-    prependIcon: {
-      type: String,
-      required: false,
-    },
-    width: {
-      type: String,
-      required: false,
-      default: "200px",
-    },
-    height: {
-      type: String,
-      required: false,
-      default: "50px",
-    },
-    disabled: false,
+    label: { type: String, required: true },
+    icon: { type: String, default: "" },
+    appendIcon: { type: String, default: "" },
+    prependIcon: { type: String, default: "" },
+    width: { type: String, default: "200px" },
+    height: { type: String, default: "50px" },
+    disabled: { type: Boolean, default: false },
     variant: {
       type: String,
-      required: false,
-      default: 'primary'
-    }, //primary, secondary, tertiary
+      default: "primary",
+      validator: (value) =>
+        ["primary", "secondary", "tertiary", "warning"].includes(value),
+    },
   },
 
   methods: {
     handleClick() {
       this.$emit("click");
-    },
-    applyStyle() {
-      // Define default styles
-      const defaultStyles = {
-        backgroundColor: this.user.theme.primary,
-        fontColor: "white",
-        borderColor: this.user.theme.primary,
-      };
+      this.styles = { ...this.variantStyles[this.variant].clicked };
 
-      const variantStyles = {
-        secondary: {
-          backgroundColor: "#FFFFFF",
-          fontColor: this.user.theme.primary,
-          borderColor: this.user.theme.primary,
-        },
-        tertiary: {
-          backgroundColor: "#FFFFFF",
-          borderColor: "#E8E8E8",
-          fontColor: "#151C36",
-        },
-        warning: {
-          backgroundColor: "#EB2D2D",
-          borderColor: "#EB2D2D",
-          fontColor: "#FFFFF",
-        }
-      };
-
-      this.styles = Object.assign(
-        {},
-        defaultStyles,
-        variantStyles[this.variant]
-      );
+      setTimeout(() => {
+        this.styles = { ...this.variantStyles[this.variant].default };
+      }, 200);
     },
   },
+  computed: {
+    buttonStyle() {
+      return {
+        backgroundColor: this.styles.backgroundColor,
+        border: this.styles.border,
+        transition: "background-color 0.3s",
+        opacity: this.styles.opacity || 1,
+      };
+    },
+  },
+
+  watch: {
+    disabled: {
+      handler(value) {
+        if(value) {
+          this.styles = { ...this.variantStyles[this.variant].disabled };
+        } else {
+          this.styles = { ...this.variantStyles[this.variant].default };
+        }
+      }
+    }
+  },
+
   mounted() {
-    this.applyStyle();
+    this.styles = { ...this.variantStyles[this.variant].default };
   },
 };
 </script>
@@ -131,22 +159,16 @@ export default {
 .___button {
   box-shadow: none;
   text-transform: none;
+  overflow: hidden;
+
   &:hover {
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
   }
 }
-.__primary {
-  &:disabled {
-    border: none !important;
-  }
-}
-.__secondary { }
+
 .__tertiary {
   &:hover {
     border: 1px solid #008df0 !important;
-  }
-  &:disabled {
-    border: none !important;
   }
 }
 </style>

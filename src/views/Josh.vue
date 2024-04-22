@@ -2,29 +2,34 @@
   <div>
     <!-- BUTTONS -->
     <div>
-      <h3>PRIMARY BUTTONS</h3>
+      <h3>BUTTONS</h3>
       <br />
-      <div class="d-flex" style="gap: 20px">
-        <v-buttons
-          label="New Audience"
-          prependIcon="mdi-plus"
-          appendIcon="mdi-chevron-down"
-          @click="count++"
-        />
-        <v-buttons
-          label="New Audience"
-          appendIcon="mdi-chevron-down"
-          variant="primary"
-          @click="count++"
-        />
-        <v-buttons
-          label="New Audience"
-          prependIcon="mdi-plus"
-          @click="count++"
-        />
-        <v-buttons label="New Audience" variant="primary" @click="count++" />
-        <v-buttons label="New Audience" disabled @click="count++" />
+      <div class="d-flex" style="gap: 20px; flex-direction: row;">
+        <div class="d-flex" style="gap: 20px; flex-direction: column;">
+          <span>PRIMARY</span>
+          <v-buttons label="New Audience" variant="primary" appendIcon="mdi-plus" :disabled="disabled" @click="count++"/>
+        </div>
+        <div class="d-flex" style="gap: 20px; flex-direction: column;">
+          <span>SECONDARY</span>
+          <v-buttons label="Metric" variant="secondary" appendIcon="mdi-plus" @click="count++" :disabled="disabled"/>
+        </div>
+        <div class="d-flex" style="gap: 20px; flex-direction: column;">
+          <span>TERTIARY</span>
+          <v-buttons label="Metric" variant="tertiary" appendIcon="mdi-plus" @click="count++" :disabled="disabled"/>
+        </div>
+        <div class="d-flex" style="gap: 20px; flex-direction: column;">
+          <span>WARNING</span>
+          <v-buttons label="Metric" variant="warning" appendIcon="mdi-plus" @click="count++" :disabled="disabled"/>
+        </div>
+        <!-- <v-buttons label="New Audi ence" appendIcon="mdi-chevron-down" variant="primary" @click="count++"/>-->
+        <!-- <v-buttons label="New Audience" prependIcon="mdi-plus" @click="count++"/> -->
+        <!-- <v-buttons label ="New Audience" variant="primary" @click="count++" /> -->
+        <!-- <v-buttons label="New Audience" disabled @click="count++" /> -->
       </div>
+      <br />
+      
+      <v-buttons label="Click to disable" variant="warning" width="auto" @click="clickDisabled"/>
+      <!-- 
       <br />
       <h3>SECONDARY BUTTONS</h3>
       <br />
@@ -83,7 +88,7 @@
           @click="count++"
         />
       </div>
-
+      -->
       <h2 style="background-color: bisque; font-size: 32px" class="mt-4">
         Button Click Counter: {{ count }}
       </h2>
@@ -104,132 +109,69 @@
                 type="text"
                 label="Workspace Name"
                 placeholder="Enter workspace name"
-              >
-              </v-input-field>
-            </v-col>
-
-            <!-- Second Column -->
-            <v-col cols="12" sm="4">
-              <v-input-field
-                @input="inputValue"
-                @inputError="inputError"
-                type="text"
-                label="Workspace Name"
+                hintText="Sample Hint"
                 prependIcon="mdi-email-outline"
-                placeholder="Enter workspace name"
+                appendIcon="mdi-chevron-down"
                 required
-              >
-              </v-input-field>
-            </v-col>
-
-            <!-- Third Column -->
-            <v-col cols="12" sm="4">
-              <v-input-field
-                @input="inputValue"
-                @inputError="inputError"
-                type="text"
-                label="Workspace Name"
-                appendIcon="mdi-chevron-down"
-                placeholder="Enter workspace name"
-              >
-              </v-input-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <!-- First Column -->
-            <v-col cols="12" sm="4">
-              <v-input-field
-                @input="inputValue"
-                @inputError="inputError"
-                type="text"
-                label="Workspace Name"
-                prependIcon="mdi-email-outline"
-                appendIcon="mdi-chevron-down"
-                placeholder="Enter workspace name"
-              >
-              </v-input-field>
-            </v-col>
-
-            <!-- Second Column -->
-            <v-col cols="12" sm="4">
-              <v-input-field
-                @input="inputValue"
-                @inputError="inputError"
-                type="text"
-                hintText="What's the hint?"
-                label="Workspace Name"
-                prependIcon="mdi-email-outline"
-                appendIcon="mdi-chevron-down"
-                placeholder="Enter workspace name"
-              >
-              </v-input-field>
-            </v-col>
-
-            <!-- Third Column -->
-            <v-col cols="12" sm="4">
-              <v-input-field
-                value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                @input="inputValue"
-                @inputError="inputError"
-                type="text"
-                hintText="What's the hint?"
-                label="Workspace Name"
-                prependIcon="mdi-email-outline"
-                appendIcon="mdi-chevron-down"
-                placeholder="Enter workspace name"
                 maxChar="10"
               >
               </v-input-field>
             </v-col>
-          </v-row>
-          <v-row>
-            <!-- First Column -->
             <v-col cols="12" sm="4">
               <v-input-field
-                :value="'This is a default value'"
                 @input="inputValue"
                 @inputError="inputError"
                 type="text"
-                hintText="What's the hint?"
-                label="Workspace Name"
+                placeholder="Enter workspace name"
+                hintText="Sample Hint"
                 prependIcon="mdi-email-outline"
                 appendIcon="mdi-chevron-down"
-                placeholder="Enter workspace name"
-                maxChar="50"
                 required
+                maxChar="10"
               >
               </v-input-field>
             </v-col>
-
-            <!-- Second Column -->
-            <v-col cols="12" sm="4">
-              <v-input-field
-                type="password"
-                @input="inputValue"
-                @inputError="inputError"
-                hintText="What's the hint?"
-                label="Password"
-                prependIcon="mdi-lock-outline"
-                placeholder="Enter password"
-                required
-              >
-              </v-input-field>
-            </v-col>
-
-            <!-- Third Column -->
             <v-col cols="12" sm="4">
               <v-input-field
                 @input="inputValue"
                 @inputError="inputError"
-                type="email"
-                hintText="What's the hint?"
-                label="Email"
+                type="text"
+                label="Workspace Name"
+                placeholder="Enter workspace name..."
+                hintText="Sample Hint"
                 prependIcon="mdi-email-outline"
-                placeholder="Enter your email"
+                appendIcon="mdi-chevron-down"
                 required
               >
               </v-input-field>
             </v-col>
+            <!-- 
+            <!-- 
+            <v-col cols="12" sm="4">
+              <v-input-field
+                @input="inputValue"
+                @inputError="inputError"
+                type="text"
+                label="Workspace Name"
+                prependIcon="mdi-email-outline"
+                placeholder="Enter workspace name"
+                required
+              >
+              </v-input-field>
+            </v-col> Second Column -->
+
+            <!--
+            <v-col cols="12" sm="4">
+              <v-input-field
+                @input="inputValue"
+                @inputError="inputError"
+                type="text"
+                label="Workspace Name"
+                appendIcon="mdi-chevron-down"
+                placeholder="Enter workspace name"
+              >
+              </v-input-field>  
+            </v-col>Third Column -->
           </v-row>
         </v-container>
       </v-form>
@@ -281,12 +223,16 @@ export default {
   data() {
     return {
       count: 0,
+      disabled: false,
       textValue: "",
       hasError: false,
     };
   },
 
   methods: {
+    clickDisabled() {
+      this.disabled = !this.disabled;
+    },
     showSuccessFeedback() {
       eventBus.$emit("showFeedback", {
         message: "It seems like you have not yet registered for an account. Please click on sign up now.",

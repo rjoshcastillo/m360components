@@ -5,16 +5,16 @@
       @click="focusInput"
       :class="{ focus: isFocus, has_error: errorText }"
     >
-      <label
+      <label v-if="label"
         class="text_input__label"
         :class="{ focus: isFocus, has_error: errorText }"
         for="text_input"
       >
         {{ label }}</label
-      ><br />
+      >
 
-      <div class="d-flex">
-        <v-icon>{{ prependIcon }}</v-icon>
+      <div class="d-flex text_input__wrapper" :style="{ marginTop: label ? '8px' : 0 }">
+        <v-icon class="text_input__icon">{{ prependIcon }}</v-icon>
         <input
           ref="textInput"
           :type="type"
@@ -23,16 +23,19 @@
           :placeholder="placeholder"
           @input="handleInput"
         />
-        <v-icon>{{ appendIcon }}</v-icon>
+        <v-icon class="text_input__icon">{{ appendIcon }}</v-icon>
       </div>
     </div>
     <div style="display: flex; justify-content: space-between">
-      <span class="text_input__hint" :class="{ has_error: errorText }">{{
-        errorText || hintText
-      }}</span>
+      <span v-if="errorText" class="text_input__error" :class="{ has_error: errorText }">
+        {{ errorText }}
+      </span>
+      <span v-else class="text_input__hint" :class="{ 'show_hint': showHint }">
+        {{ hintText }}
+      </span>
       <span
         v-if="maxChar"
-        class="text_input__hint mr-2"
+        class="text_input__max_char mr-2"
         :class="{ has_error: errorText }"
         >{{ `${model.length} / ${maxChar}` }}</span
       >
@@ -64,7 +67,12 @@ export default {
     },
     label: {
       type: String,
-      required: true,
+      required: false,
+    },
+    persistentHint: {
+      /* IF THE FIELD IS REQUIRED, WILL RESULT TO ERROR IF TEXT IS EMPTY */
+      type: Boolean,
+      required: false,
     },
     type: "" /* text, email and password */,
     placeholder: "",
@@ -77,6 +85,7 @@ export default {
       model: this.value,
       errorText: null,
       isFocus: false,
+      showHint: this.persistentHint,
       pattern:
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     };
@@ -86,22 +95,13 @@ export default {
       this.$refs.textInput.focus();
     },
 
-    trimInputValue(){
-      const maxLength = parseInt(this.maxChar);
-      const target = this.$refs.textInput;
-      let value = target.value;
-
-      if (value.length > maxLength) {
-        value = value.slice(0, maxLength);
-      }
-       this.model = value;
-    },
-
     validateInput(value) {
       if (this.type === "email" && value && !this.pattern.test(value)) {
         this.errorText = "Invalid Email";
       } else if (!value && this.required) {
         this.errorText = "Required.";
+      } else if(value.length > this.maxChar) {
+        this.errorText = "Maximum character limit reached."
       } else {
         this.errorText = null;
       }
@@ -109,7 +109,6 @@ export default {
     },
 
     handleInput() {
-      this.trimInputValue();
       this.debounceValidateInput(this.model);
       this.$emit('input', this.model)
     },
@@ -124,14 +123,21 @@ export default {
   },
 
   mounted() {
-    this.trimInputValue();
-    this.debounceValidateInput = debounce(this.validateInput, 300);
+    this.debounceValidateInput = debounce(this.validateInput, 100);
 
     this.$refs.textInput.addEventListener("focus", () => {
       this.isFocus = true;
+      if(!this.persistentHint) {
+        this.showHint = true;
+      }
     });
     this.$refs.textInput.addEventListener("blur", () => {
       this.isFocus = false;
+
+      if(!this.persistentHint) {
+        this.showHint = false;
+      }
+
       this.validateInput(this.model)
     });
   },
@@ -141,7 +147,11 @@ export default {
 .text_field__wrapper {
   border: 1px solid #898989;
   padding: 8px 12px;
-  border-radius: 10px;
+  position: relative;
+  border-radius: 8px;
+  display: flex;
+  height: 50px;
+  flex-direction: column;
   cursor: text;
   transition: border-color 0.3s ease;
 
@@ -160,12 +170,15 @@ export default {
   outline: none;
   padding: 4px;
   width: 100%;
+  font-size: 14px;
 }
 .text_input__label {
   color: #898989;
-  font-size: 14px;
-  text-align: center;
+  font-size: 12px;
+  text-align: left;
   pointer-events: none;
+  position: absolute;
+  top: 4px;
 
   &.focus {
     color: #008df0;
@@ -174,10 +187,33 @@ export default {
     color: #eb2d2d;
   }
 }
+
+.text_input__max_char {
+  margin-left: 10px;
+  font-size: 14px;
+  
+  &.has_error {
+    color: #eb2d2d;
+  }
+}
+
 .text_input__hint {
   margin-left: 10px;
   font-size: 14px;
-  opacity: 70%;
+  opacity: 0;
+  transition: opacity 0.1s linear;
+
+  &.show_hint {
+    opacity: 70%;
+  }
+}
+.text_input__icon {
+  font-size: 16px;
+  margin-top: 2px;
+}
+.text_input__error {
+  margin-left: 10px;
+  font-size: 14px;
 
   &.has_error {
     color: #eb2d2d;
