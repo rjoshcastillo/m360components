@@ -7,6 +7,7 @@
     :class="`rounded-lg black--text ___button __${variant}`"
     :style="buttonStyle"
     @click.stop="handleClick"
+    :block="block"
   >
     <div
       class="d-flex btn_content"
@@ -100,6 +101,7 @@ export default {
     width: { type: String, default: "200px" },
     height: { type: String, default: "50px" },
     disabled: { type: Boolean, default: false },
+    block: { type: Boolean, default: false },
     variant: {
       type: String,
       default: "primary",

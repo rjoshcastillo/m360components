@@ -93,7 +93,7 @@
         </div>
 
         <!-- MODAL COMPONENT HERE -->
-        <v-modal-large :dialog="showModalLarge" @closeDialog="closeModalLarge"></v-modal-large>
+        <v-modal-large :dialog="showModalLarge" @closeDialog="closeModalLarge" :isImageEnabled="true"></v-modal-large>
         <v-modal-condition :dialog="showModalCondition" @closeDialog="closeModalCondition" @onYes="closeModalCondition"
             @onNo="closeModalCondition"></v-modal-condition>
         <v-modal-condition :dialog="showModalCondition_alert" @closeDialog="closeModalCondition_alert"
