@@ -119,6 +119,18 @@ export default {
 }
 </script>
 <style lang="scss" scope>
+.table-setup table tbody tr td {
+    border-bottom: 1px solid var(--color-color-gray-neutral-gray-50, #E8E8E8) !important;
+    border-top: 1px solid var(--color-color-gray-neutral-gray-50, #E8E8E8) !important;
+}
+.table-setup table tbody tr td:first-child {
+    border-left: 1px solid var(--color-color-gray-neutral-gray-50, #E8E8E8) !important;
+}
+.table-setup table tbody tr td:last-child {
+
+    border-right: 1px solid var(--color-color-gray-neutral-gray-50, #E8E8E8) !important;
+}
+
 .v-data-table {
     >.v-data-table__wrapper {
         >table {
@@ -126,6 +138,17 @@ export default {
             border-spacing: 0 1rem;
         }
     }
+}
+
+
+td:first-child,
+th:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+td:last-child,
+th:last-child {
+    border-radius: 0 8px 8px 0;
 }
 
 .row-header {
@@ -136,10 +159,6 @@ export default {
     background-color: #E8E8EB;
 }
 
-tr {
-    border-radius: 8px;
-    border-bottom: 0 !important;
-}
 
 .column-header,
 .table-cell {
@@ -157,10 +176,9 @@ tr {
     font-size: 14px;
     font-weight: 500;
     color: #008DF0;
-    cursor: pointer;
 }
 
 .cursor-pointer {
-  cursor: pointer;
+    cursor: pointer;
 }
 </style>
