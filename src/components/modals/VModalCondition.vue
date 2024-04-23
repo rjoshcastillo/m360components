@@ -1,33 +1,60 @@
 <template>
-    <!-- add this line of code to the v-dialog if you want to enable click outside close modal -->
-    <!-- @click:outside="closeDialog()" -->
-    <v-dialog v-model="dialog" persistent width="500">
+    <v-dialog v-model="dialog" persistent :width="($phoneView && 440) || ($tabletView && 463) || 641"
+        @click:outside="closeDialog()">
         <v-card class="modal-container">
-            <div class="">
-                <img v-if="isAlert" src="@/assets/alert-message-check.svg" alt="Alert Message Icon">
-                <img v-else src="@/assets/message-check.svg" alt="Alert Message Icon">
+            <div class="close-dialog"><v-icon @click="closeDialog()" class="close-icon">mdi-close</v-icon></div>
+            <div>
+                <img :src="isAlert ? require('@assets/alert-message-check.svg') : require('@/assets/message-check.svg')"
+                    alt="Alert Message Icon">
             </div>
             <div class="item-spacing">
-                <span class="title-text">
-                    {{ cardTextTitle }}
-                </span>
+                <span class="title-text">{{ cardTextTitle }}</span>
             </div>
             <div class="item-spacing">
-                <span class="subtitle-text">
-                    {{ cardTextSubTitle }}
-                </span>
+                <span class="subtitle-text">{{ cardTextSubTitle }}</span>
+                <slot></slot>
             </div>
-            <div class="button_group item-spacing">
-                <v-btn @click="onNo" class="cancel_button">{{ cancelText }}</v-btn>
-                <v-btn @click="onYes" :style="{ backgroundColor: isAlert ? '#EB2D2D' : '#008DF0' }" class="confirm_button">{{ confirmText }}</v-btn>
+            <div
+                :class="[buttonCount === 2 || buttonCount === 3 ? 'button_group' : 'single_button', $phoneView ? 'mobile' : 'desktop', 'item-spacing']">
+                <div v-if="showThirdButton" class="second-third-button-wrapper"
+                    :class="{ 'phone_view_spacing': $phoneView }">
+                    <div :class="{ 'width_button_group': $phoneView }"> <v-buttons class="button-spacing"
+                            :width="buttonWidth" @click="onSecondAction" :block="$phoneView" :label="secondButtonText"
+                            variant="secondary" /></div>
+                    <div :class="{ 'width_button_group': $phoneView }"> <v-buttons :width="buttonWidth"
+                            @click="onThirdAction" :label="thirdButtonText" :block="$phoneView" variant="secondary" />
+                    </div>
+
+
+                </div>
+                <div v-if="showSecondButton && !showThirdButton"
+                    :class="$phoneView ? 'width_button_group_mobile phone_view_primary_spacing ' : 'width_button_group'">
+                    <v-buttons v-if="showSecondButton" :block="true" @click="onSecondAction" :label="secondButtonText"
+                        variant="secondary" />
+                </div>
+                <div v-if="showThirdButton">
+                    <v-buttons :block="$phoneView"
+                        :class="{ 'primary-button-spacing': buttonCount !== 2, 'primary-button-spacing_mobile': $phoneView }"
+                        @click="onFirstAction" :label="firstButtonText" :variant="!isAlert ? 'primary' : 'warning'" />
+                </div>
+
+                <div v-if="showSecondButton && !showThirdButton"
+                    :class="$phoneView ? 'width_button_group_mobile' : 'width_button_group'">
+                    <v-buttons @click="onFirstAction" :block="true" :label="firstButtonText"
+                        :variant="!isAlert ? 'primary' : 'warning'" />
+                </div>
+                <div v-if="!showSecondButton && !showThirdButton">
+                    <v-buttons @click="onFirstAction" :block="true" :label="firstButtonText"
+                        :variant="!isAlert ? 'primary' : 'warning'" />
+                </div>
             </div>
+
         </v-card>
     </v-dialog>
 </template>
 
 <script>
 export default {
-
     props: {
         dialog: {
             type: Boolean,
@@ -43,12 +70,17 @@ export default {
             default: "Modal Message Here",
             require: true,
         },
-        cancelText: {
+        thirdButtonText: {
+            type: String,
+            default: "Tertiary",
+            require: true,
+        },
+        secondButtonText: {
             type: String,
             default: "Secondary",
             require: true,
         },
-        confirmText: {
+        firstButtonText: {
             type: String,
             default: "Primary",
             require: true,
@@ -57,24 +89,43 @@ export default {
             type: Boolean,
             required: false,
             default: false,
-        }
+        },
+        buttonWidth: {
+            type: String,
+            default: '124.5px',
+            required: false,
+        },
+        buttonCount: {
+            type: Number,
+            default: 1,
+            required: false,
+        },
     },
     computed: {
-
+        showSecondButton() {
+            return this.buttonCount >= 2;
+        },
+        showThirdButton() {
+            return this.buttonCount >= 3;
+        }
     },
     methods: {
-        onYes() {
-            this.$emit('onYes');
+        onFirstAction() {
+            this.$emit('onFirstAction');
         },
-        onNo() {
-            this.$emit('onNo');
+        onSecondAction() {
+            this.$emit('onSecondAction');
         },
-        // closeDialog() {
-        //     this.$emit('closeDialog');
-        // }
+        onThirdAction() {
+            this.$emit('onThirdAction');
+        },
+        closeDialog() {
+            this.$emit('closeDialog');
+        }
     },
 }
 </script>
+
 <style lang="scss" scoped>
 .modal-container {
     display: flex;
@@ -82,7 +133,22 @@ export default {
     padding: 32px 24px;
     justify-content: center;
     align-items: center;
+}
 
+.close-dialog {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    cursor: pointer;
+}
+
+.close-icon {
+    width: 24px;
+    height: 24px;
+    flex-grow: 0;
+    object-fit: contain;
+
+    color: #151C36;
 }
 
 .title-text {
@@ -103,29 +169,63 @@ export default {
 
 .button_group {
     display: flex;
+
+    justify-content: space-between;
+}
+
+.button_group.mobile {
+    flex-direction: column;
+    width: 100%;
+}
+
+.button_group.desktop {
     flex-direction: row;
     width: 100%;
-    justify-content: space-around;
+}
 
-    .cancel_button {
-        width: 45%;
-        height: 50px;
-        padding: 8px, 16px, 8px, 16px;
-        border-radius: 8px;
-        border: 1px solid;
-        color: #151C36;
-    }
 
-    .confirm_button {
-        width: 45%;
-        height: 50px;
-        padding: 8px, 16px, 8px, 16px;
-        border-radius: 8px;
-        color: #ffff;
-    }
+.single_button {
+    width: 100%;
+}
+
+.width_button_group {
+    width: 48%;
+}
+
+.width_button_group_mobile {
+    width: 100%;
+}
+.phone_view_primary_spacing {
+    margin-bottom: 18px;
+}
+.phone_view_spacing {
+    margin-bottom: 16px;
+}
+
+.button-spacing {
+    margin-right: 13px;
+}
+
+.div-button-spacing {
+    margin-right: 16px;
+}
+
+.primary-button-spacing {
+    margin-left: 80px;
+}
+
+.primary-button-spacing_mobile {
+    margin: 0;
+}
+
+
+.second-third-button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .item-spacing {
-    margin: 10px 0
+    margin: 10px 0;
 }
 </style>

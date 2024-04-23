@@ -44,8 +44,9 @@
             <div class="d-flex mb-4">
                 <v-card-clickable :title="'Setup Other Channels'"
                     :description="'Ipsum odit eveniet sed architecto laboriosam cum dolore.'"
+                    :hover-description="'Phasellus ut arcu in leo mollis vehicula sed ut quam. Nulla eget libero maximus, eleifend nulla nec, rutrum lectus. Quisque scelerisque luctus purus, sed finibus erat placerat sed. Donec diam mi, interdum ut tellus ac, rhoncus viverra sapien. Aenean ac sem vitae urna molestie malesuada.'"
                     @cardClicked="openCardModal_Condition" :cardHeight="'255px'" :cardWidth="'363px'"
-                    :fontColor="'white'" :backgroundColor="'#DA4175'"></v-card-clickable>
+                    :fontColor="'white'" :backgroundColor="'#DA4175'" :hoverBackgroundColor="'#992e52'"></v-card-clickable>
                 <v-card-clickable :title="'Setup Other Channels'"
                     :description="'Ipsum odit eveniet sed architecto laboriosam cum dolore.'"
                     @cardClicked="openCardModal_Condition" class="ml-5" :cardHeight="'255px'" :cardWidth="'363px'"
@@ -83,21 +84,21 @@
             </div>
         </div>
         <!--STEPPER -->
-        <div class="stepper-container item-spacing">
+        <!-- <div class="stepper-container item-spacing">
             <div class="mb-2">
                 <h3>STEPPER</h3>
             </div>
             <div>
 
             </div>
-        </div>
+        </div> -->
 
         <!-- MODAL COMPONENT HERE -->
         <v-modal-large :dialog="showModalLarge" @closeDialog="closeModalLarge" :isImageEnabled="true"></v-modal-large>
-        <v-modal-condition :dialog="showModalCondition" @closeDialog="closeModalCondition" @onYes="closeModalCondition"
+        <v-modal-condition :dialog="showModalCondition" @closeDialog="closeModalCondition" @onYes="closeModalCondition" :buttonCount="2"
             @onNo="closeModalCondition"></v-modal-condition>
         <v-modal-condition :dialog="showModalCondition_alert" @closeDialog="closeModalCondition_alert"
-            @onYes="closeModalCondition_alert" @onNo="closeModalCondition_alert" :isAlert="true"></v-modal-condition>
+            @onYes="closeModalCondition_alert" @onNo="closeModalCondition_alert" :isAlert="true" :buttonCount="2"></v-modal-condition>
     </div>
 </template>
 <script>
@@ -109,12 +110,12 @@ import doctalScheduler from '@assets/icons/card-icons/doctal-scheduler.svg';
 import formed from '@assets/icons/card-icons/formed.svg';
 import secureFrame from '@assets/icons/card-icons/secure-frame.svg';
 import visualizeeAi from '@assets/icons/card-icons/visualizee-ai.svg';
-import VCardClickable from '../components/cardapp/VCardClickable.vue';
+
 import { SortOrder } from './enums';
 
 export default {
     components: {
-        VCardClickable
+
     },
     data() {
         return {
