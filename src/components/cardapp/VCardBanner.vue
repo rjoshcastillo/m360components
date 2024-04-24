@@ -1,27 +1,24 @@
 <template>
-  <v-card class="card-container"  :class="{'card-container-textonly': !buttonEnable || !imageEnable}"
+  <v-card class="card-container"
+    :class="{'card-container-textonly': !buttonEnable && !imageEnable, 'card-container-mobile' : $phoneView }"
     :style="{ 'width': width, 'height': height, 'background-color': bgColor }">
-    <div
-      :class="{ 'text-container': !buttonEnable && !imageEnable, 'text-container-w-image': buttonEnable || imageEnable, 'text-container-w-image': !buttonEnable && imageEnable, }">
+
+    <div :class="{ 'text-container': !buttonEnable && !imageEnable, 'text-container-w-image': buttonEnable || imageEnable }">
       <div class="title-text-div"><span class="title-text">{{ title }}</span></div>
       <div class="subtitle-text-div"><span class="subtitle-text">{{ subtitle }}</span></div>
     </div>
-    <div v-if="buttonEnable && !imageEnable" class="button-container-wo-image">
-      <div class="button-container">
-        <v-buttons :label="buttonLabel" :appendIcon="buttonIcon" :variant="variant" @click="$emit('cardClicked')" />
-      </div>
+
+    <div v-if="buttonEnable || imageEnable" class="button-container" :class="{ 'button-container-w-image': imageEnable }">
+      <v-buttons v-if="buttonEnable" :label="buttonLabel" :appendIcon="buttonIcon" :variant="variant" @click="$emit('cardClicked')" />
     </div>
-    <div v-if="buttonEnable && imageEnable" class="button-container-w-image">
-      <div class="button-container">
-        <v-buttons :label="buttonLabel" :appendIcon="buttonIcon" :variant="variant" @click="$emit('cardClicked')" />
-      </div>
-      <div >
-        <v-img :src=imageUrl />
-      </div>
+
+    <div v-if="imageEnable && !buttonEnable" class="image-setup-nobutton">
+      <v-img :src="imageUrl" />
     </div>
-    <div v-if="!buttonEnable && imageEnable" class="image-setup-nobutton"><v-img :src=imageUrl /></div>
+
   </v-card>
 </template>
+
 
 <script>
 import defaultImage from '@assets/books-cut.svg';

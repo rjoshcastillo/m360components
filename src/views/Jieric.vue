@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="d-flex flex-column">
         <!-- TABLE -->
         <div class="table-container item-spacing">
             <div class="mb-2">
@@ -24,7 +24,7 @@
             <div class="mb-2">
                 <h3>MODAL CONDITION</h3>
             </div>
-            <div class="d-flex">
+            <div class="d-flex flex-column">
                 <div class="mr-5">
                     <h4 class="mb-2">Simple Modal</h4>
                     <v-buttons @click="openModalCondition" label="Modal Condition" variant="primary" />
@@ -70,7 +70,7 @@
                 <h3>CARD BANNER</h3>
             </div>
             <div>
-                <v-card-banner @cardClicked="openCardButtonModal" :imageEnable="false" :buttonEnable="true"
+                <v-card-banner @cardClicked="openCardButtonModal" :imageEnable="true" :buttonEnable="false"
                     :subtitle="'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec quam massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec quam massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec quam massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'"></v-card-banner>
             </div>
         </div>
@@ -131,6 +131,7 @@ export default {
                     "time": "3 days ago",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fermentum posuere turpis quis molestie. Sed luctus, augue eu consectetur interdum, sem dolor consequat ligula.",
                     "channels": ["mail", "sms"]
+                    
                 },
                 {
                     "imageUrl": baronAi,
@@ -347,5 +348,11 @@ export default {
 
 .item-spacing {
     margin: 30px 0;
+}
+
+.modal-container,
+.modal-conditional-container {
+    display: flex;
+    flex-direction: column;
 }
 </style>

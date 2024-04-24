@@ -1,10 +1,11 @@
 <template>
     <div class="card-main">
-        <v-card @click="$emit('cardClicked')" class="card-container" @mouseover="hoverNewItem = true"
+        <v-card  @click="$emit('cardClicked')" class="card-container" @mouseover="hoverNewItem = true"
             @mouseleave="hoverNewItem = false" :style="{
                 backgroundColor: hoverNewItem ? hoverBackgroundColor : backgroundColor,
                 width: cardWidth,
                 height: cardHeight,
+                transition: 'background-color 0.3s'
             }">
             <div class="header-card">
                 <div class="title" v-if="!hoverNewItem">

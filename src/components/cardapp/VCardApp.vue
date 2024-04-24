@@ -1,5 +1,5 @@
 <template>
-  <div class="card-container">
+  <div class="card-container" :style="{ backgroundColor: backgroundColor }">
     <div class="card-title">
       <div class="d-flex">
         <v-avatar color="surface-variant" size="44">
@@ -58,6 +58,11 @@ export default {
     channel: {
       type: Array,
       required: true,
+    },
+    backgroundColor: {
+      type: String,
+      required: false,
+      default: '#FFFF'
     }
   },
   computed: {
@@ -91,7 +96,7 @@ export default {
 .card-container {
   border-radius: 8px !important;
   max-width: 241px !important;
-  box-shadow: 0px 2px 15px 0px #000005;
+  box-shadow: 0px 4px 20px 0px #0000001A;
   border-style: 1px solid #e8e8e8;
   height: 256px;
 }
