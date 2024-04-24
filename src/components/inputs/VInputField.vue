@@ -5,7 +5,8 @@
       @click="focusInput"
       :class="{ focus: isFocus, has_error: errorText }"
     >
-      <label v-if="label"
+      <label
+        v-if="label"
         class="text_input__label"
         :class="{ focus: isFocus, has_error: errorText }"
         for="text_input"
@@ -13,24 +14,43 @@
         {{ label }}</label
       >
 
-      <div class="d-flex text_input__wrapper" :style="{ marginTop: label ? '8px' : 0 }">
-        <v-icon class="text_input__icon">{{ prependIcon }}</v-icon>
+      <div
+        class="d-flex text_input__wrapper"
+        :style="{ marginTop: label ? '8px' : 0 }"
+      >
+        <span
+          v-if="type === inputType.numeric"
+          class="text_input__icon_currency"
+        >
+          <span v-if="currency === 'USD'">$</span>
+          <span v-else>₱</span>
+        </span>
+        <v-icon v-else class="text_input__icon">{{ prependIcon }}</v-icon>
         <input
           ref="textInput"
           :type="type"
           v-model="model"
           class="text__input"
+          :style="{ textAlign: type === inputType.numeric ? 'right' : 'left' }"
           :placeholder="placeholder"
           @input="handleInput"
+          @blur="formatInput"
         />
-        <v-icon class="text_input__icon">{{ appendIcon }}</v-icon>
+        <span v-if="type === inputType.units" class="text_input__icon_units">{{
+          abbrv.toLowerCase()
+        }}</span>
+        <v-icon v-else class="text_input__icon">{{ appendIcon }}</v-icon>
       </div>
     </div>
     <div style="display: flex; justify-content: space-between">
-      <span v-if="errorText" class="text_input__error" :class="{ has_error: errorText }">
+      <span
+        v-if="errorText"
+        class="text_input__error"
+        :class="{ has_error: errorText }"
+      >
         {{ errorText }}
       </span>
-      <span v-else class="text_input__hint" :class="{ 'show_hint': showHint }">
+      <span v-else class="text_input__hint" :class="{ show_hint: showHint }">
         {{ hintText }}
       </span>
       <span
@@ -49,11 +69,13 @@ import debounce from "lodash.debounce";
 export default {
   props: {
     value: {
-      /* FOR DEFAULT VALUE OF TEXTFIELD */ type: String,
+      /* FOR DEFAULT VALUE OF TEXTFIELD */
+      type: String,
       default: "",
     },
     maxChar: {
-      /* FOR MAX CHARACTER LENGHT OF TEXTFIELD */ type: String,
+      /* FOR MAX CHARACTER LENGTH OF TEXTFIELD */
+      type: String,
       required: false,
     },
     required: {
@@ -74,10 +96,21 @@ export default {
       type: Boolean,
       required: false,
     },
-    type: "" /* text, email and password */,
+    type: {
+      /* text, email and password */
+      type: String,
+      required: true,
+      default: "text",
+    },
     placeholder: "",
     prependIcon: "",
     appendIcon: "",
+    currency: {
+      type: String,
+      default: "PHP",
+      required: false,
+    },
+    abbrv: "",
   },
   data() {
     return {
@@ -86,11 +119,24 @@ export default {
       errorText: null,
       isFocus: false,
       showHint: this.persistentHint,
+      inputType: {
+        numeric: "numeric",
+        email: "email",
+        text: "text",
+        units: "units",
+      },
       pattern:
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     };
   },
+
   methods: {
+
+    handleInput() {
+      /* Validate the value while the user is typing. */
+      this.debounceValidateInput(this.model);
+    },
+
     focusInput() {
       this.$refs.textInput.focus();
     },
@@ -100,26 +146,54 @@ export default {
         this.errorText = "Invalid Email";
       } else if (!value && this.required) {
         this.errorText = "Required.";
-      } else if(value.length > this.maxChar) {
-        this.errorText = "Maximum character limit reached."
+      } else if (value.length > this.maxChar) {
+        this.errorText = `Min ${this.maxChar} characters.`;
       } else {
         this.errorText = null;
       }
       this.emitInputError();
     },
 
-    handleInput() {
-      this.debounceValidateInput(this.model);
-      this.$emit('input', this.model)
-    },
-
     emitInputError() {
-      if(this.errorText) {
-        this.$emit('inputError', true);
+      if (this.errorText) {
+        this.$emit("inputError", true);
         return;
       }
-      this.$emit('inputError', false)
-    }
+      this.$emit("inputError", false);
+    },
+
+    formatInput() {
+      this.handleNumericInput();
+      this.handleUnitInput();
+
+      this.$emit("input", this.model);
+    },
+
+    handleNumericInput() {
+      if (this.type.toLowerCase() === this.inputType.numeric) {
+        const numericValue = parseFloat(this.model.replace(/[^\d.]/g, ""));
+        if (!isNaN(numericValue)) {
+          this.numericModel = numericValue;
+
+          this.model = numericValue.toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          });
+        } else {
+          this.model = "";
+        }
+      }
+    },
+    
+    handleUnitInput() {
+      if (this.type.toLowerCase() === this.inputType.units) {
+        this.model = this.model.replace(/[^\d.]/g, "");
+        const decimalIndex = this.model.indexOf(".");
+        if (decimalIndex !== -1) {
+          this.model = this.model.slice(0, decimalIndex + 3);
+        }
+      }
+    },
   },
 
   mounted() {
@@ -127,23 +201,36 @@ export default {
 
     this.$refs.textInput.addEventListener("focus", () => {
       this.isFocus = true;
-      if(!this.persistentHint) {
+      if (!this.persistentHint) {
         this.showHint = true;
       }
     });
     this.$refs.textInput.addEventListener("blur", () => {
       this.isFocus = false;
 
-      if(!this.persistentHint) {
+      if (!this.persistentHint) {
         this.showHint = false;
       }
 
-      this.validateInput(this.model)
+      this.validateInput(this.model);
     });
   },
 };
 </script>
 <style scoped>
+/* REMOVE ARROW ON INPUT IF THE TYPE IS NUMBER */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* REMOVE ARROW ON INPUT IF THE TYPE IS NUMBER */
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .text_field__wrapper {
   border: 1px solid #898989;
   padding: 8px 12px;
@@ -191,7 +278,7 @@ export default {
 .text_input__max_char {
   margin-left: 10px;
   font-size: 14px;
-  
+
   &.has_error {
     color: #eb2d2d;
   }
@@ -207,9 +294,14 @@ export default {
     opacity: 70%;
   }
 }
+.text_input__icon_currency,
+.text_input__icon_units {
+  margin-top: 2px;
+  color: #898989;
+}
 .text_input__icon {
   font-size: 16px;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 .text_input__error {
   margin-left: 10px;

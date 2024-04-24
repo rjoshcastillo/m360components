@@ -87,6 +87,7 @@ export default {
             backgroundColor: "#EB2D2D",
             border: `1px solid #EB2D2D`,
             fontColor: "#FFFFFF",
+            iconColor: '#FFFFFF'
           },
           clicked: {},
         },
@@ -125,7 +126,7 @@ export default {
       return {
         backgroundColor: this.styles.backgroundColor,
         border: this.styles.border,
-        transition: "background-color 0.3s",
+        transition: "background-color 0.2s",
         opacity: this.styles.opacity || 1,
       };
     },
