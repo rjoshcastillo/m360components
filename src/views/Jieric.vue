@@ -46,7 +46,8 @@
                     :description="'Ipsum odit eveniet sed architecto laboriosam cum dolore.'"
                     :hover-description="'Phasellus ut arcu in leo mollis vehicula sed ut quam. Nulla eget libero maximus, eleifend nulla nec, rutrum lectus. Quisque scelerisque luctus purus, sed finibus erat placerat sed. Donec diam mi, interdum ut tellus ac, rhoncus viverra sapien. Aenean ac sem vitae urna molestie malesuada.'"
                     @cardClicked="openCardModal_Condition" :cardHeight="'255px'" :cardWidth="'363px'"
-                    :fontColor="'white'" :backgroundColor="'#DA4175'" :hoverBackgroundColor="'#992e52'"></v-card-clickable>
+                    :fontColor="'white'" :backgroundColor="'#DA4175'"
+                    :hoverBackgroundColor="'#992e52'"></v-card-clickable>
                 <v-card-clickable :title="'Setup Other Channels'"
                     :description="'Ipsum odit eveniet sed architecto laboriosam cum dolore.'"
                     @cardClicked="openCardModal_Condition" class="ml-5" :cardHeight="'255px'" :cardWidth="'363px'"
@@ -69,7 +70,8 @@
                 <h3>CARD BANNER</h3>
             </div>
             <div>
-                <v-card-button @cardClicked="openCardButtonModal"></v-card-button>
+                <v-card-banner @cardClicked="openCardButtonModal" :imageEnable="true" :buttonEnable="true"
+                    :subtitle="'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec quam massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec quam massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec quam massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'"></v-card-banner>
             </div>
         </div>
         <!--CARD APPS -->
@@ -83,22 +85,14 @@
                     @cardClicked="openCardModal"></v-card-app>
             </div>
         </div>
-        <!--STEPPER -->
-        <!-- <div class="stepper-container item-spacing">
-            <div class="mb-2">
-                <h3>STEPPER</h3>
-            </div>
-            <div>
-
-            </div>
-        </div> -->
 
         <!-- MODAL COMPONENT HERE -->
         <v-modal-large :dialog="showModalLarge" @closeDialog="closeModalLarge" :isImageEnabled="true"></v-modal-large>
-        <v-modal-condition :dialog="showModalCondition" @closeDialog="closeModalCondition" @onYes="closeModalCondition" :buttonCount="2"
-            @onNo="closeModalCondition"></v-modal-condition>
+        <v-modal-condition :dialog="showModalCondition" @closeDialog="closeModalCondition" @onYes="closeModalCondition"
+            :buttonCount="2" @onNo="closeModalCondition"></v-modal-condition>
         <v-modal-condition :dialog="showModalCondition_alert" @closeDialog="closeModalCondition_alert"
-            @onYes="closeModalCondition_alert" @onNo="closeModalCondition_alert" :isAlert="true" :buttonCount="2"></v-modal-condition>
+            @onYes="closeModalCondition_alert" @onNo="closeModalCondition_alert" :isAlert="true"
+            :buttonCount="2"></v-modal-condition>
     </div>
 </template>
 <script>

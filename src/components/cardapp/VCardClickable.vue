@@ -1,20 +1,21 @@
 <template>
     <div class="card-main">
-        <v-card @click="$emit('cardClicked')" class="card-container" @mouseover="hoverNewItem = true" @mouseleave="hoverNewItem = false" :style="{
-            backgroundColor: hoverNewItem ? hoverBackgroundColor : backgroundColor,
-            width: cardWidth,
-            height: cardHeight,
-        }">
+        <v-card @click="$emit('cardClicked')" class="card-container" @mouseover="hoverNewItem = true"
+            @mouseleave="hoverNewItem = false" :style="{
+                backgroundColor: hoverNewItem ? hoverBackgroundColor : backgroundColor,
+                width: cardWidth,
+                height: cardHeight,
+            }">
             <div class="header-card">
-                <div class="title"  v-if="!hoverNewItem">
+                <div class="title" v-if="!hoverNewItem">
                     <span class="title-text" :style="{
-            color: fontColor,
-        }">{{ title }}</span>
+                color: fontColor,
+            }">{{ title }}</span>
                 </div>
                 <div class="title" v-if="hoverNewItem">
                     <span class="title-text" :style="{
-            color: fontColor,
-        }">{{ hoverTitle }}</span>
+                color: fontColor,
+            }">{{ hoverTitle }}</span>
                 </div>
                 <div>
                     <v-icon size="24" :color="fontColor" style="cursor: pointer;"
@@ -23,11 +24,11 @@
             </div>
             <div class="description-card">
                 <div class="subtitle" v-if="!hoverNewItem"><span class="description-text" :style="{
-            color: fontColor,
-        }">{{ limitText(description) }}</span></div>
+                color: fontColor,
+            }">{{ description }}</span></div>
                 <div class="subtitle" v-if="hoverNewItem"><span class="description-text" :style="{
-            color: fontColor,
-        }">{{ limitText(hoverDescription) }}</span></div>
+                color: fontColor,
+            }">{{ hoverDescription }}</span></div>
                 <div class="img-setup" v-if="enableImage && !hoverNewItem">
                     <v-img :src="imageUrl" alt="image background" />
                 </div>
@@ -95,7 +96,7 @@ export default {
             required: false,
             default: true
         }
-        
+
     },
     data() {
         return {
@@ -103,30 +104,6 @@ export default {
             textLimit: 100
         };
     },
-  created() {
-    window.addEventListener('resize', this.calculateTextLimit);
-    this.calculateTextLimit();
-  },
-  destroyed() {
-    window.removeEventListener('resize', this.calculateTextLimit);
-  },
-  methods: {
-    calculateTextLimit() {
-      if (this.$phoneView) {
-        this.textLimit = 50; // Adjust text limit for phone view
-      } else if (this.$tabletView) {
-        this.textLimit = 100; // Adjust text limit for tablet view
-      } else {
-        this.textLimit = 150; // Default text limit for larger screens
-      }
-    },
-    limitText(text) {
-      if (text.length > this.textLimit) {
-        return text.substring(0, this.textLimit) + '...';
-      }
-      return text;
-    }
-  }
 }
 </script>
 
