@@ -1,12 +1,16 @@
 <template>
-  <v-card class="card-container" :class="{'card-container-textonly': !buttonEnable || !imageEnable}"
-    :style="{ width: width, height: height }">
+  <v-card class="card-container"  :class="{'card-container-textonly': !buttonEnable || !imageEnable}"
+    :style="{ 'width': width, 'height': height, 'background-color': bgColor }">
     <div
       :class="{ 'text-container': !buttonEnable && !imageEnable, 'text-container-w-image': buttonEnable || imageEnable, 'text-container-w-image': !buttonEnable && imageEnable, }">
       <div class="title-text-div"><span class="title-text">{{ title }}</span></div>
       <div class="subtitle-text-div"><span class="subtitle-text">{{ subtitle }}</span></div>
     </div>
-
+    <div v-if="buttonEnable && !imageEnable" class="button-container-wo-image">
+      <div class="button-container">
+        <v-buttons :label="buttonLabel" :appendIcon="buttonIcon" :variant="variant" @click="$emit('cardClicked')" />
+      </div>
+    </div>
     <div v-if="buttonEnable && imageEnable" class="button-container-w-image">
       <div class="button-container">
         <v-buttons :label="buttonLabel" :appendIcon="buttonIcon" :variant="variant" @click="$emit('cardClicked')" />
@@ -72,6 +76,11 @@ export default {
       type: String,
       required: false,
       default: 'auto'
+    },
+    bgColor: {
+      type: String,
+      required: false,
+      default: '#FBECF1'
     }
   }
 }
@@ -80,7 +89,6 @@ export default {
 <style lang="scss" scoped>
 .card-container {
   border-radius: 20px;
-  background-color: #FBECF1;
   padding: 32px 0 0 32px;
   display: flex;
   flex-direction: row;
@@ -89,8 +97,7 @@ export default {
 
 .card-container-textonly {
   border-radius: 20px;
-  background-color: #FBECF1;
-  padding: 32px 0 0 32px;
+  padding: 32px
 }
 
 .title-text {
@@ -127,7 +134,12 @@ export default {
 .subtitle-text-div {
   width: 90%;
 }
-
+.button-container-wo-image {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
+}
 .button-container-w-image {
   display: flex;
   align-items: center;

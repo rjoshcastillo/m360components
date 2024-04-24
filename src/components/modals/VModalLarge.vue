@@ -1,7 +1,7 @@
 <template>
-    <v-dialog v-model="dialog" persistent :width="isImageEnabled ? '637' : '415'" @click:outside="closeDialog()">
+    <v-dialog v-model="dialog" persistent :width="isImageEnabled && !$phoneView ? '637' : '415'" @click:outside="closeDialog()">
         <div class="parent-container">
-            <v-card :class="['dialog-container', { 'dialog-container-noimage': !isImageEnabled }]">
+            <v-card class="dialog-container" :class="{'dialog-container-noimage': !isImageEnabled, 'dialog-container-noimage' : $phoneView }">
                 <div class="left-container">
                     <div class="bottom-margin">
                         <v-img class="m360-icon" :src="require('@assets/m360-icon.svg')" alt="m360Icon"></v-img>
@@ -13,11 +13,11 @@
                         <p class="description-text">{{ dialogDescription }}</p>
                     </div>
                     <div>
-                        <v-buttons :block="!isImageEnabled" :label="buttonLabel" :appendIcon="buttonIcon"
+                        <v-buttons :block="!isImageEnabled || $phoneView" :label="buttonLabel" :appendIcon="buttonIcon"
                             :variant="buttonVariant" />
                     </div>
                 </div>
-                <div v-if="isImageEnabled" class="right-img">
+                <div v-if="isImageEnabled && !$phoneView" class="right-img">
                     <v-img :src="leftImage" alt="girlBG"></v-img>
                 </div>
             </v-card>
@@ -93,13 +93,12 @@ export default {
 }
 
 .dialog-container-noimage {
+    width: 100%;
     .left-container {
-        width: 100%;
-        
+        width: 100%;     
     }
-
     .right-img {
-        display: none;
+        width: 0;
     }
 }
 

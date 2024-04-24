@@ -70,7 +70,7 @@
                 <h3>CARD BANNER</h3>
             </div>
             <div>
-                <v-card-banner @cardClicked="openCardButtonModal" :imageEnable="true" :buttonEnable="true"
+                <v-card-banner @cardClicked="openCardButtonModal" :imageEnable="false" :buttonEnable="true"
                     :subtitle="'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec quam massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec quam massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec quam massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'"></v-card-banner>
             </div>
         </div>
