@@ -17,7 +17,6 @@ declare module 'vue' {
     VCard: typeof import('vuetify/lib')['VCard']
     VCardApp: typeof import('./src/components/cardapp/VCardApp.vue')['default']
     VCardBanner: typeof import('./src/components/cardapp/VCardBanner.vue')['default']
-    VCardButton: typeof import('vuetify/lib')['VCardButton']
     VCardClickable: typeof import('./src/components/cardapp/VCardClickable.vue')['default']
     VCheckbox: typeof import('vuetify/lib')['VCheckbox']
     VCheckBoxComp: typeof import('./src/components/CheckBox/VCheckBoxComp.vue')['default']
