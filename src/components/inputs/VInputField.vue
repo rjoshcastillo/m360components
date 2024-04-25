@@ -73,6 +73,11 @@ export default {
       type: String,
       default: "",
     },
+    minChar: {
+      /* FOR MAX CHARACTER LENGTH OF TEXTFIELD */
+      type: String,
+      required: false,
+    },
     maxChar: {
       /* FOR MAX CHARACTER LENGTH OF TEXTFIELD */
       type: String,
@@ -131,7 +136,6 @@ export default {
   },
 
   methods: {
-
     handleInput() {
       /* Validate the value while the user is typing. */
       this.debounceValidateInput(this.model);
@@ -142,16 +146,46 @@ export default {
     },
 
     validateInput(value) {
-      if (this.type === "email" && value && !this.pattern.test(value)) {
-        this.errorText = "Invalid Email";
-      } else if (!value && this.required) {
+      if (!value && this.required) {
         this.errorText = "Required.";
+      } else if (this.type === "email" && !this.pattern.test(value)) {
+        this.errorText = `${value} is not a valid email address.`;
+      } else if (this.type === "password") {
+        this.validatePassword(value);
       } else if (value.length > this.maxChar) {
         this.errorText = `Min ${this.maxChar} characters.`;
       } else {
         this.errorText = null;
       }
       this.emitInputError();
+    },
+
+    validatePassword(value) {
+      const hasNumber = /\d/.test(value);
+      const hasSymbol = /[!@#$%^&*]/.test(value);
+      const hasLowercase = /[a-z]/.test(value);
+      const hasUppercase = /[A-Z]/.test(value);
+
+      let error = "Password should contain:";
+      let hasError = false;
+      if (value.length < this.minChar) {
+        error += `\nMin ${this.minChar} characters.`;
+        hasError = true;
+      }
+      if (!hasNumber) {
+        error += "\nNumber.";
+        hasError = true;
+      }
+      if (!hasSymbol) {
+        error += "\nSymbol.";
+        hasError = true;
+      }
+      if (!hasLowercase || !hasUppercase) {
+        error += "\nLower and upper case.";
+        hasError = true;
+      }
+
+      this.errorText = hasError ? error : "";
     },
 
     emitInputError() {
@@ -184,7 +218,7 @@ export default {
         }
       }
     },
-    
+
     handleUnitInput() {
       if (this.type.toLowerCase() === this.inputType.units) {
         this.model = this.model.replace(/[^\d.]/g, "");
@@ -305,6 +339,7 @@ input[type="number"] {
 }
 .text_input__error {
   margin-left: 10px;
+  white-space: pre-line;
   font-size: 14px;
 
   &.has_error {

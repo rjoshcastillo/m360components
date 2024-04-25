@@ -14,6 +14,7 @@ declare module 'vue' {
     VAvatarComp: typeof import('./src/components/avatar/VAvatarComp.vue')['default']
     VBtn: typeof import('vuetify/lib')['VBtn']
     VButtons: typeof import('./src/components/buttons/VButtons.vue')['default']
+    VButtonsTest: typeof import('./src/components/buttons/VButtonsTest.vue')['default']
     VCard: typeof import('vuetify/lib')['VCard']
     VCardApp: typeof import('./src/components/cardapp/VCardApp.vue')['default']
     VCardBanner: typeof import('./src/components/cardapp/VCardBanner.vue')['default']
@@ -45,6 +46,8 @@ declare module 'vue' {
     VTabItem: typeof import('vuetify/lib')['VTabItem']
     VTableAction: typeof import('./src/components/tables/VTableAction.vue')['default']
     VTabs: typeof import('vuetify/lib')['VTabs']
+    VTextArea: typeof import('./src/components/inputs/VTextArea.vue')['default']
+    VTextAreaField: typeof import('./src/components/inputs/VTextAreaField.vue')['default']
     VToast: typeof import('./src/components/toasts/VToast.vue')['default']
   }
 }

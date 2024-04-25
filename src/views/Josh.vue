@@ -47,66 +47,7 @@
         variant="primary"
         @click="clickDisabled"
       />
-      <!-- 
-      <br />
-      <h3>SECONDARY BUTTONS</h3>
-      <br />
-      <div class="d-flex" style="gap: 20px">
-        <v-buttons
-          label="New Audience"
-          prependIcon="mdi-plus"
-          appendIcon="mdi-chevron-down"
-          variant="secondary"
-          @click="count++"
-        />
-        <v-buttons
-          label="New Audience"
-          appendIcon="mdi-chevron-down"
-          variant="secondary"
-          @click="count++"
-        />
-        <v-buttons
-          label="New Audience"
-          prependIcon="mdi-plus"
-          variant="secondary"
-          @click="count++"
-        />
-        <v-buttons label="New Audience" variant="secondary" @click="count++" />
-        <v-buttons
-          label="New Audience"
-          disabled
-          variant="secondary"
-          @click="count++"
-        />
-      </div>
-      <br />
-      <h3>TERTIARY BUTTONS</h3>
-      <br />
-      <div class="d-flex" style="gap: 20px">
-        <v-buttons
-          label="Metric"
-          prependIcon="mdi-plus"
-          variant="tertiary"
-          width="100px"
-          @click="count++"
-        />
-        <v-buttons
-          label="Metric"
-          prependIcon="mdi-chevron-down"
-          variant="tertiary"
-          width="100px"
-          @click="count++"
-        />
-        <v-buttons
-          label="Metric"
-          prependIcon="mdi-chevron-down"
-          variant="tertiary"
-          width="100px"
-          disabled
-          @click="count++"
-        />
-      </div>
-      -->
+      
       <h2 style="background-color: bisque; font-size: 32px" class="mt-4">
         Button Click Counter: {{ count }}
       </h2>
@@ -179,27 +120,13 @@
               <v-input-field
                 @input="inputValue"
                 @inputError="inputError"
-                type="numeric"
-                label="Amount"
-                placeholder="Enter amount"
-                hintText="Sample Hint"
-                prependIcon="mdi-email-outline"
-                required
-                maxChar="10"
-              >
-              </v-input-field>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-input-field
-                @input="inputValue"
-                @inputError="inputError"
                 type="password"
                 label="Password"
                 placeholder="Enter password"
                 hintText="Sample Hint"
                 prependIcon="mdi-email-outline"
                 required
-                maxChar="10"
+                minChar="8"
               >
               </v-input-field>
             </v-col>
@@ -222,7 +149,7 @@
                     @input="inputValue"
                     @inputError="inputError"
                     type="units"
-                    abbrv="lbs"
+                    abbrv="kg"
                     label="Weight"
                   >
                   </v-input-field>
@@ -255,33 +182,19 @@
                 </div>
               </div>
             </v-col>
-            <!-- 
-            <!-- 
+            
             <v-col cols="12" sm="4">
-              <v-input-field
+              <v-text-area-field
                 @input="inputValue"
                 @inputError="inputError"
-                type="text"
-                label="Workspace Name"
-                prependIcon="mdi-email-outline"
-                placeholder="Enter workspace name"
+                placeholder="Text area"
+                hintText="Text area hint"
                 required
+                :rows="4"
+                maxChar="100"
               >
-              </v-input-field>
-            </v-col> Second Column -->
-
-            <!--
-            <v-col cols="12" sm="4">
-              <v-input-field
-                @input="inputValue"
-                @inputError="inputError"
-                type="text"
-                label="Workspace Name"
-                appendIcon="mdi-chevron-down"
-                placeholder="Enter workspace name"
-              >
-              </v-input-field>  
-            </v-col>Third Column -->
+              </v-text-area-field>
+            </v-col>
           </v-row>
         </v-container>
       </v-form>
