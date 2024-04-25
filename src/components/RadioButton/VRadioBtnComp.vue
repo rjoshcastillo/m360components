@@ -31,14 +31,17 @@ export default {
   display: flex;
 }
 ::v-deep .radio-btn .v-input--selection-controls__input {
-  height: 16px;
-  width: 16px;
-  border-width: 1px solid #151c36;
-  border-radius: 14px;
+  // height: 16px;
+  // width: 16px;
+  // border-width: 1px solid #151c36;
+  // border-radius: 14px;
 }
 
 ::v-deep .radio-btn .v-label {
+  font-family: Satoshi;
   font-size: 14px;
-  margin-left: 10px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: left;
 }
 </style>
