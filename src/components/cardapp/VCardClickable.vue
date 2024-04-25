@@ -1,26 +1,36 @@
 <template>
-    <div>
-        <v-card @click="$emit('cardClicked')" class="card-container" :style="{
-            backgroundColor: backgroundColor,
-            width: cardWidth,
-            height: cardHeight
-        }">
+    <div class="card-main">
+        <v-card  @click="$emit('cardClicked')" class="card-container" @mouseover="hoverNewItem = true"
+            @mouseleave="hoverNewItem = false" :style="{
+                backgroundColor: hoverNewItem ? hoverBackgroundColor : backgroundColor,
+                width: cardWidth,
+                height: cardHeight,
+                transition: 'background-color 0.3s'
+            }">
             <div class="header-card">
-                <div class="title">
+                <div class="title" v-if="!hoverNewItem">
                     <span class="title-text" :style="{
-            color: fontColor,
-        }">{{ title }}</span>
+                color: fontColor,
+            }">{{ title }}</span>
+                </div>
+                <div class="title" v-if="hoverNewItem">
+                    <span class="title-text" :style="{
+                color: fontColor,
+            }">{{ hoverTitle }}</span>
                 </div>
                 <div>
-                    <v-icon size="24" :color="fontColor" style="cursor: pointer;" @click="$emit('cardClicked')">mdi-arrow-right</v-icon>
+                    <v-icon size="24" :color="fontColor" style="cursor: pointer;"
+                        @click="$emit('cardClicked')">mdi-arrow-right</v-icon>
                 </div>
             </div>
             <div class="description-card">
-                <div class="subtitle"><span class="description-text" :style="{
-            color: fontColor,
-
-        }">{{ description }}</span></div>
-                <div class="img-setup">
+                <div class="subtitle" v-if="!hoverNewItem"><span class="description-text" :style="{
+                color: fontColor,
+            }">{{ description }}</span></div>
+                <div class="subtitle" v-if="hoverNewItem"><span class="description-text" :style="{
+                color: fontColor,
+            }">{{ hoverDescription }}</span></div>
+                <div class="img-setup" v-if="enableImage && !hoverNewItem">
                     <v-img :src="imageUrl" alt="image background" />
                 </div>
             </div>
@@ -37,10 +47,20 @@ export default {
             required: true,
             default: 'Setup Other Channels'
         },
+        hoverTitle: {
+            type: String,
+            required: false,
+            default: 'New Title Setup Other Channels'
+        },
         description: {
             type: String,
             required: true,
             default: 'Ipsum odit eveniet sed architecto laboriosam cum dolore. '
+        },
+        hoverDescription: {
+            type: String,
+            required: false,
+            default: 'New Description Setup Other Channels'
         },
         fontColor: {
             type: String,
@@ -50,7 +70,12 @@ export default {
         backgroundColor: {
             type: String,
             required: false,
-            default: '#151C36'
+            default: '#18e2ce'
+        },
+        hoverBackgroundColor: {
+            type: String,
+            required: false,
+            default: '#119e90'
         },
         cardWidth: {
             type: String,
@@ -66,15 +91,32 @@ export default {
             type: String,
             required: false,
             default: headphoneBG
+        },
+        enableImage: {
+            type: Boolean,
+            required: false,
+            default: true
         }
-    }
+
+    },
+    data() {
+        return {
+            hoverNewItem: false,
+            textLimit: 100
+        };
+    },
 }
 </script>
 
 <style lang="scss" scoped>
+.card-main {
+    overflow: hidden;
+}
+
 .card-container {
     padding: 24px;
     border-radius: 8px;
+    position: relative;
 }
 
 .header-card {
@@ -83,10 +125,12 @@ export default {
     justify-content: space-between;
     align-items: center;
 }
-.description-card{
+
+.description-card {
     display: flex;
     flex-direction: row;
 }
+
 .title-text {
     font-family: Satoshi;
     font-size: 24px;
@@ -98,20 +142,22 @@ export default {
     font-size: 14px;
     font-weight: 500;
 }
-.img-setup{
 
+.img-setup {
     height: 350px;
     width: 350px;
-    transform: rotate(45deg);
     position: absolute;
-    top: 100px;
-    left: 100px;
+    bottom: 0;
+    right: 0;
+    transform: translate(50%, 50%);
+    transform-origin: bottom right;
 }
-.title{
-    width: 60%;
-}
-.subtitle{
+
+.title {
     width: 60%;
 }
 
+.subtitle {
+    width: 60%;
+}
 </style>

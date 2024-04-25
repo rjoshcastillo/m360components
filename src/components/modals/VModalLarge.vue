@@ -1,26 +1,24 @@
 <template>
-    <v-dialog v-model="dialog" persistent width="637" @click:outside="closeDialog()">
+    <v-dialog v-model="dialog" persistent :width="isImageEnabled && !$phoneView ? '637' : '415'" @click:outside="closeDialog()">
         <div class="parent-container">
-            <v-card class="dialog-container">
+            <v-card class="dialog-container" :class="{'dialog-container-noimage': !isImageEnabled, 'dialog-container-noimage' : $phoneView }">
                 <div class="left-container">
                     <div class="bottom-margin">
-                        <v-img class="m360-icon" :src="require('@assets/m360-icon.svg')" alt="girlBG"></v-img>
+                        <v-img class="m360-icon" :src="require('@assets/m360-icon.svg')" alt="m360Icon"></v-img>
                     </div>
                     <div class="bottom-margin">
-                        <h3 class="title-text">Welcome to dashboard!</h3>
+                        <h3 class="title-text">{{ dialogTitle }}</h3>
                     </div>
                     <div class="bottom-margin">
-                        <p class="description-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec
-                            quam
-                            massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec quam massa.
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec quam massa.</p>
+                        <p class="description-text">{{ dialogDescription }}</p>
                     </div>
                     <div>
-                        <v-buttons label="Get Started!" appendIcon="mdi-chevron-right" variant="primary" />
+                        <v-buttons :block="!isImageEnabled || $phoneView" :label="buttonLabel" :appendIcon="buttonIcon"
+                            :variant="buttonVariant" />
                     </div>
                 </div>
-                <div class="right-img">
-                    <v-img :src="require('@assets/girl-bg-modal.svg')" alt="girlBG"></v-img>
+                <div v-if="isImageEnabled && !$phoneView" class="right-img">
+                    <v-img :src="leftImage" alt="girlBG"></v-img>
                 </div>
             </v-card>
         </div>
@@ -28,11 +26,47 @@
 </template>
 
 <script>
+import defaultImage from '@/assets/girl-bg-modal.svg';
 export default {
     props: {
         dialog: {
             type: Boolean,
             required: true,
+        },
+        dialogTitle: {
+            type: String,
+            required: false,
+            default: 'Welcome to dashboard!'
+        },
+        dialogDescription: {
+            type: String,
+            required: false,
+            default: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus necquam massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec quam massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec quam massa.'
+        },
+        isImageEnabled: {
+            type: Boolean,
+            required: false,
+            default: true
+        },
+        buttonVariant: {
+            type: String,
+            required: false,
+            default: 'primary'
+        },
+        buttonLabel: {
+            type: String,
+            required: false,
+            default: 'Get Started!'
+        },
+        buttonIcon: {
+            type: String,
+            required: false,
+            default: 'mdi-chevron-right'
+        },
+        leftImage: {
+            type: String,
+            required: false,
+            default: defaultImage
         }
     },
 
@@ -58,6 +92,16 @@ export default {
     border-radius: 20px;
 }
 
+.dialog-container-noimage {
+    width: 100%;
+    .left-container {
+        width: 100%;     
+    }
+    .right-img {
+        width: 0;
+    }
+}
+
 .title-text {
     font-family: Satoshi;
     font-size: 24px;
@@ -70,6 +114,7 @@ export default {
     font-size: 14px;
     font-weight: 500;
     color: #606060;
+    align-self: stretch;
 }
 
 .bottom-margin {

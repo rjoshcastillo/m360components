@@ -16,10 +16,11 @@ declare module 'vue' {
     VButtons: typeof import('./src/components/buttons/VButtons.vue')['default']
     VCard: typeof import('vuetify/lib')['VCard']
     VCardApp: typeof import('./src/components/cardapp/VCardApp.vue')['default']
-    VCardButton: typeof import('./src/components/cardapp/VCardButton.vue')['default']
+    VCardBanner: typeof import('./src/components/cardapp/VCardBanner.vue')['default']
     VCardClickable: typeof import('./src/components/cardapp/VCardClickable.vue')['default']
     VCheckbox: typeof import('vuetify/lib')['VCheckbox']
     VCheckBoxComp: typeof import('./src/components/CheckBox/VCheckBoxComp.vue')['default']
+    VChip: typeof import('vuetify/lib')['VChip']
     VCol: typeof import('vuetify/lib')['VCol']
     VContainer: typeof import('vuetify/lib')['VContainer']
     VDialog: typeof import('vuetify/lib')['VDialog']
@@ -44,8 +45,6 @@ declare module 'vue' {
     VTabItem: typeof import('vuetify/lib')['VTabItem']
     VTableAction: typeof import('./src/components/tables/VTableAction.vue')['default']
     VTabs: typeof import('vuetify/lib')['VTabs']
-    VTabsItems: typeof import('vuetify/lib')['VTabsItems']
-    VTabsSlider: typeof import('vuetify/lib')['VTabsSlider']
     VToast: typeof import('./src/components/toasts/VToast.vue')['default']
   }
 }
