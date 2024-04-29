@@ -2,14 +2,16 @@
     <div>
         <v-card class="table-card-container">
             <v-data-table v-model="selected" :headers="headers" :items="items" :item-key="itemKey"
-                :show-select="showSelect" :single-select="singleSelect" class="custom_table"
-                hide-default-footer>
+                :show-select="showSelect" :single-select="singleSelect" class="custom_table" hide-default-footer>
                 <template v-slot:item.status="{ item }">
-                    <v-pills :bgColor="getStatusColor(item.status)" :label="item.status">
-                        {{ item.status }}
+                    <v-pills :bgColor="getStatusColor(item.status)" :label="item.status" :pillWidth="'68px'" :pillPadding="'8px 12px'"
+                        :pillHeight="'24px'">
                     </v-pills>
                 </template>
-
+                <template v-if="enableAction" v-slot:item.action>
+                    <span style="cursor: pointer;" class="action-text" @click="$emit('actionClicked')">Action<v-icon
+                            size="x-large" color="#008DF0">mdi-dots-vertical</v-icon></span>
+                </template>
             </v-data-table>
         </v-card>
     </div>
@@ -119,10 +121,23 @@ export default {
 }
 
 ::v-deep .text-start {
-    font-family: Satoshi !important;
+    font-family: RobotoMono;
     font-size: 14px !important;
-    font-weight: 500 !important;
+    font-weight: normal;
     color: #151C36 !important;
+}
+
+::v-deep thead {
+    >tr {
+        >th {
+            >span {
+                font-family: Satoshi !important;
+                font-size: 14px !important;
+                font-weight: 500 !important;
+                color: #151C36 !important;
+            }
+        }
+    }
 }
 
 ::v-deep .v-data-table {
@@ -132,5 +147,12 @@ export default {
             border-spacing: 0 1rem;
         }
     }
+}
+
+.action-text {
+    font-family: RobotoMono;
+    font-size: 14px;
+    font-weight: 500;
+    color: #008DF0;
 }
 </style>

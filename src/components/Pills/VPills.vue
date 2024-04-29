@@ -4,8 +4,8 @@
       backgroundColor: bgColor,
       borderRadius: '24px',
       width: pillWidth,
-      height: '16px',
-      padding: '4px 5px 4px 5px',
+      height: pillHeight,
+      padding: pillPadding ,
       gap: '10px',
       display: 'flex',
       alignItems: 'center',
@@ -30,9 +30,18 @@ export default {
     pillWidth: {
       type: String,
       default: "auto",
-      required: true,
+      required: false,
     },
-
+    pillHeight: {
+      type: String,
+      default: "auto",
+      required: false,
+    },
+    pillPadding: {
+      type: String,
+      default: "4px 5px 4px 5px",
+      required: false,
+    }
   },
   computed: {},
   methods: {},

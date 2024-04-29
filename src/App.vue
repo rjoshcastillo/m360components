@@ -29,4 +29,13 @@ export default {
   font-display: swap;
   font-style: normal;
 }
+
+@font-face {
+  font-family: "RobotoMono";
+  /* TODO: if we only use this. might as well delete other fonts */
+  src: url("assets/fonts/RobotoMono-Regular.ttf") format("truetype");
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: normal;
+}
 </style>
