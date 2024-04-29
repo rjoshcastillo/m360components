@@ -80,13 +80,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
 }
 
 .stepper-header {
   display: flex;
   flex-direction: row;
-  width: 100%;
   align-items: center;
   justify-content: center;
 }
