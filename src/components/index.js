@@ -5,13 +5,8 @@ import camelCase from "lodash/camelCase";
 const requireButtons = require.context("./buttons", false, /_[A-Z]\w+\.(vue)$/);
 const requireInputField = require.context('./inputs', false, /_[A-Z]\w+\.(vue)$/);
 const requireToasts = require.context('./toasts', false, /_[A-Z]\w+\.(vue)$/);
-<<<<<<< Updated upstream
-=======
 const requireTabs = require.context('./toasts', false, /_[A-Z]\w+\.(vue)$/);
 // const requireCards = require.context('./cards', false, /_[A-Z]\w+\.(vue)$/);
-const requireCardapp = require.context('./cardapp', false, /_[A-Z]\w+\.(vue)$/);
-const requireTableAction = require.context('./tables', false, /_[A-Z]\w+\.(vue)$/);
->>>>>>> Stashed changes
 const requireModal = require.context('./modals', false, /_[A-Z]\w+\.(vue)$/);
 const requireCard = require.context("./cardapp", false, /_[A-Z]\w+\.(vue)$/);
 const requireTable = require.context("./tables", false, /_[A-Z]\w+\.(vue)$/);

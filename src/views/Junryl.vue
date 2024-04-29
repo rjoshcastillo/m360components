@@ -2,20 +2,16 @@
   <div>
     <div class="stepper-container">
       <h2>STEPPER COMPONENT</h2>
-      <v-stepper-comp></v-stepper-comp>
+      <v-stepper-comp :stepperData="stepperData"></v-stepper-comp>
     </div>
     <h2>AVATAR COMPONENT</h2>
     <div class="avatar-container">
       <div class="avatar-content">
-        <v-avatar-comp
-          :image="require('@assets/human-avatar.svg')"
-          name="Jhon Doe">
+        <v-avatar-comp :image="require('@assets/human-avatar.svg')" name="Jhon Doe">
         </v-avatar-comp>
 
         <v-avatar-comp name="Jhon Doe"> </v-avatar-comp>
-        <v-avatar-comp
-          :image="require('@assets/human-avatar-3.svg')"
-          name="Jhon Doe">
+        <v-avatar-comp :image="require('@assets/human-avatar-3.svg')" name="Jhon Doe">
         </v-avatar-comp>
       </div>
     </div>
@@ -37,19 +33,13 @@
         </div>
         <div>
           <v-radio-group>
-            <v-radio
-              label="Radio One"
-              value="selected"
-              :disabled="true"></v-radio>
+            <v-radio label="Radio One" value="selected" :disabled="true"></v-radio>
           </v-radio-group>
           <h4>DISABLED</h4>
         </div>
         <div>
           <v-radio-group v-model="selected">
-            <v-radio
-              label="Radio One"
-              value="selected"
-              :disabled="true"></v-radio>
+            <v-radio label="Radio One" value="selected" :disabled="true"></v-radio>
           </v-radio-group>
           <h4>DISABLED</h4>
         </div>
@@ -68,25 +58,15 @@
           <h4>DEFAULT</h4>
         </div>
         <div>
-          <v-checkbox
-            v-model="selected"
-            label="Label"
-            value="selected"></v-checkbox>
+          <v-checkbox v-model="selected" label="Label" value="selected"></v-checkbox>
           <h4>TICKED</h4>
         </div>
         <div>
-          <v-checkbox
-            label="Label"
-            value="selected"
-            :disabled="true"></v-checkbox>
+          <v-checkbox label="Label" value="selected" :disabled="true"></v-checkbox>
           <h4>DISABLED</h4>
         </div>
         <div>
-          <v-checkbox
-            v-model="selected"
-            label="Label"
-            value="selected"
-            :disabled="true"></v-checkbox>
+          <v-checkbox v-model="selected" label="Label" value="selected" :disabled="true"></v-checkbox>
           <h4>DISABLED</h4>
         </div>
       </div>
@@ -98,24 +78,30 @@
     <h2>PILLS COMPONENT</h2>
     <div class="pills-container">
       <div>
-        <v-pills label="Draft" bgColor="yellow"></v-pills>
+        <v-pills label="Draft" bgColor="yellow" pillWidth="35px" pillHeight="16px"></v-pills>
         <h6>YELLOW</h6>
       </div>
       <div>
-        <v-pills label="Active" bgColor="green"></v-pills>
+        <v-pills label="Active" bgColor="green" pillWidth="41px" pillHeight="16px"></v-pills>
         <h6>GREEN</h6>
       </div>
       <div>
-        <v-pills label="Inactive" bgColor="gray"></v-pills>
+        <v-pills label="Inactive" bgColor="gray" pillWidth="49px" pillHeight="16px"></v-pills>
         <h6>GRAY</h6>
       </div>
       <div>
-        <v-pills label="New" bgColor=" blue"></v-pills>
+        <v-pills label="New" bgColor=" blue" pillWidth="33px" pillHeight="16px"></v-pills>
         <h6>BLUE</h6>
       </div>
       <div>
-        <v-pills label="Recommended" bgColor="purple"></v-pills>
+        <v-pills label="Recommended" bgColor="purple" pillWidth="86PX" pillHeight="16px"></v-pills>
         <h6>PURPLE</h6>
+      </div>
+    </div>
+    <h2>TABS COMPONENT</h2>
+    <div class="tabs-container">
+      <div>
+        <v-tabs></v-tabs>
       </div>
     </div>
   </div>
@@ -127,16 +113,16 @@ export default {
     return {
       options: [
         {
-          label: "button-1",
-          value: "button-1",
+          label: "Radio One",
+          value: "Radio One",
         },
         {
-          label: "button-2",
-          value: "button-2",
+          label: "Radio Two",
+          value: "Radio Two",
         },
         {
-          label: "button-3",
-          value: "button-3",
+          label: "Radio Three",
+          value: "Radio Three",
         },
       ],
       selected: "selected",
@@ -154,6 +140,26 @@ export default {
           value: "option-3",
         },
       ],
+      stepperData: [
+      {
+          name: "Step 1",
+          component: "Step1Component",
+          stepLabel: "Personal Information 1",
+          done: false,
+        },
+        {
+          name: "Step 2",
+          component: "Step2Component",
+          stepLabel: "Personal Information 2",
+          done: false,
+        },
+        {
+          name: "Step 3",
+          component: "Step3Component",
+          stepLabel: "Personal Information 3",
+          done: false,
+        },
+      ],
     };
   },
 };
@@ -169,13 +175,11 @@ export default {
   gap: 20px;
 }
 .avatar-container {
-  border: 1px solid black;
   padding: 20px;
 }
 .radio-container {
   padding: 30px;
   height: auto;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   border-radius: 4px;
@@ -193,7 +197,6 @@ export default {
   gap: 20px;
 }
 .checkbox-container {
-  border: 1px solid black;
   padding: 20px;
 }
 .checkbox-status {
@@ -209,11 +212,15 @@ export default {
 }
 
 .pills-container {
-  border: 1px solid black;
   padding: 20px;
   display: flex;
   flex-direction: row;
   gap: 20px;
+}
+
+.pills-container {
+  display: flex;
+  flex-direction: row;
 }
 /* Your component styles here */
 </style>

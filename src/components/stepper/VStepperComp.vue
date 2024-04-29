@@ -2,26 +2,25 @@
 <template>
   <div class="stepper">
     <div class="stepper-header">
-      <div
-        v-for="(step, index) in steps"
-        :key="index"
-        :class="{
-          'step-active': currentStep === index,
-          'step-inactive': currentStep !== index,
-          'step-done': step.done,
-        }">
+      <div v-for="(step, index) in steps" :key="index" :class="{
+        'step-active': currentStep === index,
+        'step-inactive': currentStep !== index,
+        'step-done': step.done,
+      }">
         <div class="header-content">
-          <div class="stepItem">
-            <div class="step-content">
-              <label v-if="step.done === false" class="step-label">
-                {{ index + 1 }}</label
-              >
-              <v-icon class="step-icon" v-if="step.done === true"
-                >mdi-check</v-icon
-              >
+          <div class="header-item">
+            <div class="step-item">
+              <div class="step-content">
+                <label v-if="step.done === false" class="step-label">
+                  {{ index + 1 }}</label>
+                <v-icon class="step-icon" v-if="step.done === true">mdi-check</v-icon>
+              </div>
+            </div>
+            <div class="step-name">
+              {{ step.stepLabel }}
             </div>
           </div>
-          Personal Information
+
         </div>
         <div class="header-label">
           <label v-if="currentStep === index"> ACTIVE </label>
@@ -45,29 +44,14 @@ export default {
   data() {
     return {
       currentStep: 0,
-      steps: [
-        // Define your steps here
-        // For example:
-        {
-          name: "Step 1",
-          component: "Step1Component",
-          done: false,
-        },
-        {
-          name: "Step 2",
-          component: "Step2Component",
-          done: false,
-        },
-        {
-          name: "Step 3",
-          component: "Step3Component",
-          done: false,
-        },
-      ],
+      steps: this.stepperData,
       label: "next",
     };
   },
-  computed: {},
+  props: {
+    stepperLabel: "",
+    stepperData: Array,
+  },
 
   methods: {
     nextStep() {
@@ -97,81 +81,93 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  border: 1px solid black;
 }
+
 .stepper-header {
   display: flex;
   flex-direction: row;
   width: 100%;
   align-items: center;
   justify-content: center;
-  gap: 10px;
 }
+
 .header-content {
   display: flex;
-  flex-direction: row;
-  align-items: space-between;
-  width: 100%;
-  align-items: center;
+  align-content: center;
+  width: 418.67px;
+  height: 139px;
+  padding: 32px 16px 32px 16px;
+  opacity: 0px;
+  background: var(--color-color-gray-neutral-white, #FFFFFF);
+  border: 1px solid var(--color-color-gray-neutral-gray-50, #E8E8E8);
+  box-shadow: 0px 2px 15px 0px #00000005;
 }
-.step-done {
-  font-weight: bold 2px;
-  color: red;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
 
-  border: 2px solid black;
-  border-radius: 5%;
+.header-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
+
+.step-name {
+  font-family: Satoshi;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+}
+
 
 .step-active {
-  font-weight: bold 2px;
   color: #008df0;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-
-  border: 2px solid black;
-  border-radius: 5%;
 }
-.step-inactive {
-  font-weight: bold 2px;
-  color: #898989;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
 
-  border: 2px solid black;
-  border-radius: 5%;
+
+
+.step-active .step-item {
+  background: #008df0;
+  border: 1px solid#008df0;
 }
-.step-active .stepItem {
+.step-done .step-item {
+  background: #008df0;
+  border: 1px solid#008df0;
+}
+
+.step-done .step-item {
   background: #008df0;
 }
-.step-done .stepItem {
-  background: #008df0;
-}
+
 .step-active .step-label {
   color: white;
 }
-.stepItem {
+.step-active .step-item {
+  color: white;
+}
+.step-item {
   align-content: center;
   border: 2px solid #000;
   border-radius: 50%;
   height: 45px;
   width: 45px;
-  margin-right: 20px;
+  font-family: Satoshi;
   font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
 }
-.stepItem .step-icon {
+
+.step-item .step-icon {
   color: #ffffff;
 }
+
 .step-content {
   text-align: center;
 }
+
 .buttons {
   margin-top: 20px;
 }
+
 button {
   margin: 0 10px;
 }

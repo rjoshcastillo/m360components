@@ -1,29 +1,63 @@
 <template>
-  <v-card>
-    <v-tabs color="deep-purple accent-4">
-      <v-tab>ITEM 1</v-tab>
-      <v-tab>ITEM 2</v-tab>
-      <v-tab>ITEM 3</v-tab>
-
-      <v-tab-item v-for="n in 3" :key="n">
-        <v-container fluid>
-          <v-row>
-            <v-col v-for="i in 6" :key="i" cols="12" md="4">
-              <span>{{ i }}</span>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-tab-item>
+  <div>
+    <v-tabs v-model="tab" class="tab-header">
+      <v-tab v-for="(tabItem, index) in tabs" :key="index" class="custom-tab">
+        <span class="tab-label"> {{ tabItem.label }}</span>
+      </v-tab>
     </v-tabs>
-  </v-card>
+
+    <v-tabs-items v-model="tab">
+      <v-tab-item v-for="(tabItem, index) in tabs" :key="index" class="custom-tab-item">
+        {{ tabItem.content }}
+      </v-tab-item>
+    </v-tabs-items>
+  </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      tab: null,
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      tab: null, // Current active tab
+      tabs: [ // Array of tab items
+        { label: 'item 1', content: 'item 1 content' },
+        { label: 'item 2', content: 'item 2 content' },
+        { label: 'item 3', content: 'item 3 content' },
+        { label: 'item 4', content: 'item 4 content' },
+      ]
     };
-  },
+  }
 };
 </script>
+
+<style lang="scss" scoped>
+::v-deep .v-slide-group__content {}
+
+::v-deep .custom-tab.v-tab {
+  width: 83px;
+  height: 45px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border: solid 1px var(--hello-yellow-yellow-300);
+  text-transform: none;
+}
+
+.tab-label {
+  width: auto;
+  height: 20px;
+  flex-grow: 0;
+  font-family: Satoshi;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: left;
+  color: var(--serious-navy-navy-300);
+}
+</style>
