@@ -181,23 +181,34 @@ export default {
                     text: 'Name',
                     type: 'name',
                     value: 'name',
+                    sortable: true
                 },
                 {
                     text: 'Channels',
                     key: 'channel',
                     value: 'channel',
+                    sortable: false
                 },
                 {
                     text: 'Last Active',
                     type: 'last_active',
                     value: 'last_active',
+                    sortable: true
                     
                 },
                 {
                     text: 'Status',
                     type: 'status',
                     value: 'status',
+                    sortable: true
                 },
+                {
+                    text: 'Action',
+                    type: 'action',
+                    value: 'action',
+                    sortable: false
+                },
+
 
             ],
             tableData: [{
