@@ -18,6 +18,7 @@ declare module 'vue' {
     VCardApp: typeof import('./src/components/cardapp/VCardApp.vue')['default']
     VCardBanner: typeof import('./src/components/cardapp/VCardBanner.vue')['default']
     VCardClickable: typeof import('./src/components/cardapp/VCardClickable.vue')['default']
+    VCardText: typeof import('vuetify/lib')['VCardText']
     VCheckbox: typeof import('vuetify/lib')['VCheckbox']
     VCheckBoxComp: typeof import('./src/components/CheckBox/VCheckBoxComp.vue')['default']
     VChip: typeof import('vuetify/lib')['VChip']
@@ -45,6 +46,7 @@ declare module 'vue' {
     VTabItem: typeof import('vuetify/lib')['VTabItem']
     VTableAction: typeof import('./src/components/tables/VTableAction.vue')['default']
     VTabs: typeof import('vuetify/lib')['VTabs']
+    VTabsItems: typeof import('vuetify/lib')['VTabsItems']
     VToast: typeof import('./src/components/toasts/VToast.vue')['default']
   }
 }

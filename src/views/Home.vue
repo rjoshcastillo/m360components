@@ -7,9 +7,9 @@
       }}</span>
     </div>
     <div>
-      <!-- <Josh />
-      <Junryl /> -->
-      <Jieric />
+      <!-- <Josh /> -->
+      <Junryl />
+      <!-- <Jieric /> -->
     </div>
   </div>
 </template>

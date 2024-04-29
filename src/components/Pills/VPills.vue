@@ -4,11 +4,12 @@
       backgroundColor: bgColor,
       borderRadius: '24px',
       width: pillWidth,
-      height: pillHeight,
-      padding:'4px 5px 4px 5px',
-      gap:'10px',
-      display:'flex',
-      alignItems:'center'
+      height: '16px',
+      padding: '4px 5px 4px 5px',
+      gap: '10px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
     }">
       <div class="pill-label">
         {{ label }}
@@ -26,8 +27,12 @@ export default {
   props: {
     label: "",
     bgColor: "",
-    pillWidth: "",
-    pillHeight: "",
+    pillWidth: {
+      type: String,
+      default: "auto",
+      required: true,
+    },
+
   },
   computed: {},
   methods: {},
@@ -36,7 +41,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .pill-container .pill-label {
-font-family: Satoshi;
+  font-family: Satoshi;
   font-size: 11px;
   font-weight: 500;
   line-height: 20px;

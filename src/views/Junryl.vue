@@ -78,23 +78,23 @@
     <h2>PILLS COMPONENT</h2>
     <div class="pills-container">
       <div>
-        <v-pills label="Draft" bgColor="yellow" pillWidth="35px" pillHeight="16px"></v-pills>
+        <v-pills label="Draft" bgColor="yellow" pillWidth="35px" ></v-pills>
         <h6>YELLOW</h6>
       </div>
       <div>
-        <v-pills label="Active" bgColor="green" pillWidth="41px" pillHeight="16px"></v-pills>
+        <v-pills label="Active" bgColor="green" pillWidth="41px" ></v-pills>
         <h6>GREEN</h6>
       </div>
       <div>
-        <v-pills label="Inactive" bgColor="gray" pillWidth="49px" pillHeight="16px"></v-pills>
+        <v-pills label="Inactive" bgColor="gray" pillWidth="49px" ></v-pills>
         <h6>GRAY</h6>
       </div>
       <div>
-        <v-pills label="New" bgColor=" blue" pillWidth="33px" pillHeight="16px"></v-pills>
+        <v-pills label="New" bgColor=" blue" pillWidth="33px" ></v-pills>
         <h6>BLUE</h6>
       </div>
       <div>
-        <v-pills label="Recommended" bgColor="purple" pillWidth="86PX" pillHeight="16px"></v-pills>
+        <v-pills label="Recommended" bgColor="purple" ></v-pills>
         <h6>PURPLE</h6>
       </div>
     </div>
