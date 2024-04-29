@@ -1,18 +1,24 @@
 <template>
   <v-card class="card-container"
-    :class="{'card-container-textonly': !buttonEnable && !imageEnable, 'card-container-mobile' : $phoneView }"
+    :class="{ 'card-container-textonly': !buttonEnable && !imageEnable, 'card-container-mobile': $phoneView }"
     :style="{ 'width': width, 'height': height, 'background-color': bgColor }">
 
-    <div :class="{ 'text-container': !buttonEnable && !imageEnable, 'text-container-w-image': buttonEnable || imageEnable }">
+    <div
+      :class="{ 'text-container': !buttonEnable || !imageEnable && $phoneView, 'text-container-w-image': buttonEnable && imageEnable && !$phoneView }">
       <div class="title-text-div"><span class="title-text">{{ title }}</span></div>
       <div class="subtitle-text-div"><span class="subtitle-text">{{ subtitle }}</span></div>
     </div>
 
-    <div v-if="buttonEnable || imageEnable" class="button-container" :class="{ 'button-container-w-image': imageEnable }">
-      <v-buttons v-if="buttonEnable" :label="buttonLabel" :appendIcon="buttonIcon" :variant="variant" @click="$emit('cardClicked')" />
+    <div v-if="buttonEnable"
+      :class="{ 'button-container-w-image': imageEnable, 'button-container-wo-image': !imageEnable }">
+      <div>
+        <v-buttons v-if="buttonEnable" :label="buttonLabel" :appendIcon="buttonIcon" :variant="variant"
+          @click="$emit('cardClicked')" />
+      </div>
+      <div v-if="!$phoneView && imageEnable"><v-img :src="imageUrl" /></div>
     </div>
 
-    <div v-if="imageEnable && !buttonEnable" class="image-setup-nobutton">
+    <div v-if="imageEnable && !buttonEnable && !$phoneView" class="image-setup-nobutton">
       <v-img :src="imageUrl" />
     </div>
 
@@ -92,6 +98,14 @@ export default {
   overflow: hidden;
 }
 
+.card-container-mobile {
+  border-radius: 20px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 .card-container-textonly {
   border-radius: 20px;
   padding: 32px
@@ -122,30 +136,51 @@ export default {
 
 .text-container {
   width: 100%;
+
+  .title-text-div,
+  .subtitle-text-div {
+    width: 100%;
+  }
 }
 
 .text-container-w-image {
   width: 90%;
+
+  .title-text-div,
+  .subtitle-text-div {
+    width: 100%;
+  }
+
+
 }
-.title-text-div,
-.subtitle-text-div {
-  width: 90%;
+
+.text-container-wo-image {
+  width: 80%;
+
+  .title-text-div,
+  .subtitle-text-div {
+    width: 100%;
+  }
 }
+
+
 .button-container-wo-image {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  flex-direction: column;
+    margin-top: 10px;
 }
+
 .button-container-w-image {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin-top: 10px;
 }
+
 .button-container {
   display: flex;
   justify-content: center;
-  width: 20%;
+  // width: 20%;
 }
 </style>

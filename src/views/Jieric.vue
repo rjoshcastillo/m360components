@@ -6,8 +6,8 @@
                 <h3>TABLE</h3>
             </div>
             <div>
-                <v-table-action :headers="tableHeader" :items="tableData" :hideColumn="hideColumn"
-                    @onChangeSort="updateSorterColumn"></v-table-action>
+                <v-table-action :headers="tableHeader" :items="tableData" :showSelect="true" :hideColumn="hideColumn"
+                    @onChangeSort="updateSorterColumn" :enableAction="true" ></v-table-action>
             </div>
         </div>
         <!-- MODAL -->
@@ -41,26 +41,26 @@
             <div class="mb-2">
                 <h3>CLICKABLE CARD</h3>
             </div>
-            <div class="d-flex mb-4">
-                <v-card-clickable :title="'Setup Other Channels'"
+            <div class="d-flex mb-4" :class="{ 'flex-column': $phoneView }">
+                <v-card-clickable :class="{ 'mb-4': $phoneView }" :title="'Setup Other Channels'"
                     :description="'Ipsum odit eveniet sed architecto laboriosam cum dolore.'"
                     :hover-description="'Phasellus ut arcu in leo mollis vehicula sed ut quam. Nulla eget libero maximus, eleifend nulla nec, rutrum lectus. Quisque scelerisque luctus purus, sed finibus erat placerat sed. Donec diam mi, interdum ut tellus ac, rhoncus viverra sapien. Aenean ac sem vitae urna molestie malesuada.'"
                     @cardClicked="openCardModal_Condition" :cardHeight="'255px'" :cardWidth="'363px'"
                     :fontColor="'white'" :backgroundColor="'#DA4175'"
                     :hoverBackgroundColor="'#992e52'"></v-card-clickable>
-                <v-card-clickable :title="'Setup Other Channels'"
+                <v-card-clickable :class="{ 'ml-5': !$phoneView }" :title="'Setup Other Channels'"
                     :description="'Ipsum odit eveniet sed architecto laboriosam cum dolore.'"
-                    @cardClicked="openCardModal_Condition" class="ml-5" :cardHeight="'255px'" :cardWidth="'363px'"
+                    @cardClicked="openCardModal_Condition" :cardHeight="'255px'" :cardWidth="'363px'"
                     :fontColor="'#0062A8'" :backgroundColor="'#18E2CE'"></v-card-clickable>
             </div>
-            <div class="d-flex mb-4">
-                <v-card-clickable :title="'Setup Other Channels'"
+            <div class="d-flex mb-4" :class="{ 'flex-column': $phoneView }">
+                <v-card-clickable :class="{ 'mb-4': $phoneView }" :title="'Setup Other Channels'"
                     :description="'Ipsum odit eveniet sed architecto laboriosam cum dolore.'"
                     @cardClicked="openCardModal_Condition" :cardHeight="'255px'" :cardWidth="'492px'"
                     :fontColor="'#992E52'" :backgroundColor="'#FFB838'"></v-card-clickable>
-                <v-card-clickable :title="'Setup Other Channels'"
+                <v-card-clickable :class="{ 'ml-5': !$phoneView }" :title="'Setup Other Channels'"
                     :description="'Ipsum odit eveniet sed architecto laboriosam cum dolore.'"
-                    @cardClicked="openCardModal_Condition" class="ml-5" :cardHeight="'255px'" :cardWidth="'234px'"
+                    @cardClicked="openCardModal_Condition" :cardHeight="'255px'" :cardWidth="'234px'"
                     :fontColor="'white'" :backgroundColor="'#6D3D91'"></v-card-clickable>
             </div>
         </div>
@@ -70,7 +70,7 @@
                 <h3>CARD BANNER</h3>
             </div>
             <div>
-                <v-card-banner @cardClicked="openCardButtonModal" :imageEnable="true" :buttonEnable="false"
+                <v-card-banner @cardClicked="openCardButtonModal" :imageEnable="true" :buttonEnable="true"
                     :subtitle="'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec quam massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec quam massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec quam massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'"></v-card-banner>
             </div>
         </div>
@@ -131,7 +131,7 @@ export default {
                     "time": "3 days ago",
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fermentum posuere turpis quis molestie. Sed luctus, augue eu consectetur interdum, sem dolor consequat ligula.",
                     "channels": ["mail", "sms"]
-                    
+
                 },
                 {
                     "imageUrl": baronAi,
@@ -175,6 +175,30 @@ export default {
                     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fermentum posuere turpis quis molestie. Sed luctus, augue eu consectetur interdum, sem dolor consequat ligula.",
                     "channels": ["messenger", "instagram", "viber", "whatsapp"]
                 },
+            ],
+            tableHeader: [
+                {
+                    text: 'Name',
+                    type: 'name',
+                    value: 'name',
+                },
+                {
+                    text: 'Channels',
+                    key: 'channel',
+                    value: 'channel',
+                },
+                {
+                    text: 'Last Active',
+                    type: 'last_active',
+                    value: 'last_active',
+                    
+                },
+                {
+                    text: 'Status',
+                    type: 'status',
+                    value: 'status',
+                },
+
             ],
             tableData: [{
                 id: 1,
@@ -286,51 +310,6 @@ export default {
             this.$emit('onChangeSort', sorterColumns[0]);
         }
 
-    },
-    computed: {
-        tableHeader() {
-            return [
-                {
-                    text: 'Name',
-                    class: 'cursor-pointer',
-                    sortable: true,
-                    type: 'name',
-                    key: 'name',
-                    sortOrder: this.sorterColumns.find((sc) => sc.field === 'name')?.order,
-                    sorterIndex: this.sorterColumns.findIndex((sc) => sc.field === 'name'),
-                },
-                {
-                    text: 'Channels',
-                    class: '',
-                    type: 'channel',
-                },
-                {
-                    text: 'Last Active',
-                    class: '',
-                    sortable: true,
-                    type: 'last_active',
-                    key: 'last_active',
-                    sortOrder: this.sorterColumns.find((sc) => sc.field === 'last_active')?.order,
-                    sorterIndex: this.sorterColumns.findIndex((sc) => sc.field === 'last_active'),
-                },
-                {
-                    text: 'Status',
-                    class: '',
-                    sortable: true,
-                    type: 'status',
-                    key: 'status',
-                    sortOrder: this.sorterColumns.find((sc) => sc.field === 'status')?.order,
-                    sorterIndex: this.sorterColumns.findIndex((sc) => sc.field === 'status'),
-                },
-                {
-                    text: 'Action',
-                    class: '',
-                    action_enable: true,
-                    type: 'action'
-                },
-
-            ];
-        },
     },
 }
 </script>

@@ -23,6 +23,7 @@ declare module 'vue' {
     VChip: typeof import('vuetify/lib')['VChip']
     VCol: typeof import('vuetify/lib')['VCol']
     VContainer: typeof import('vuetify/lib')['VContainer']
+    VDataTable: typeof import('vuetify/lib')['VDataTable']
     VDialog: typeof import('vuetify/lib')['VDialog']
     VDivider: typeof import('vuetify/lib')['VDivider']
     VFeedBack: typeof import('./src/components/feedback/VFeedBack.vue')['default']

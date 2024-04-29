@@ -1,19 +1,20 @@
 <template>
     <div class="card-main">
-        <v-card  @click="$emit('cardClicked')" class="card-container" @mouseover="hoverNewItem = true"
-            @mouseleave="hoverNewItem = false" :style="{
-                backgroundColor: hoverNewItem ? hoverBackgroundColor : backgroundColor,
+        <v-card  @click="$emit('cardClicked')" class="card-container" @mouseover="toggleHover(true)"
+            @mouseleave="toggleHover(false)"  @touchstart="toggleHover(true)"
+       @touchend="toggleHover(false)" :style="{
+                backgroundColor: hover ? hoverBackgroundColor : backgroundColor,
                 width: cardWidth,
                 height: cardHeight,
                 transition: 'background-color 0.3s'
             }">
             <div class="header-card">
-                <div class="title" v-if="!hoverNewItem">
+                <div class="title" v-if="!hover" :style="{width: $phoneView ? '90%' : '80%'}">
                     <span class="title-text" :style="{
-                color: fontColor,
+                color: fontColor, 
             }">{{ title }}</span>
                 </div>
-                <div class="title" v-if="hoverNewItem">
+                <div class="title" v-if="hover" :style="{width: $phoneView ? '90%' : '80%'}">
                     <span class="title-text" :style="{
                 color: fontColor,
             }">{{ hoverTitle }}</span>
@@ -24,13 +25,13 @@
                 </div>
             </div>
             <div class="description-card">
-                <div class="subtitle" v-if="!hoverNewItem"><span class="description-text" :style="{
+                <div class="subtitle" v-if="!hover" :style="{width: $phoneView ? '90%' : '80%'}"><span class="description-text" :style="{
                 color: fontColor,
             }">{{ description }}</span></div>
-                <div class="subtitle" v-if="hoverNewItem"><span class="description-text" :style="{
+                <div class="subtitle" v-if="hover" :style="{width: $phoneView ? '90%' : '80%'}"><span class="description-text" :style="{
                 color: fontColor,
             }">{{ hoverDescription }}</span></div>
-                <div class="img-setup" v-if="enableImage && !hoverNewItem">
+                <div class="img-setup" v-if="enableImage && !hover && !$phoneView">
                     <v-img :src="imageUrl" alt="image background" />
                 </div>
             </div>
@@ -101,10 +102,15 @@ export default {
     },
     data() {
         return {
-            hoverNewItem: false,
+            hover: false,
             textLimit: 100
         };
     },
+    methods: {
+    toggleHover(isHovered) {
+      this.hover = isHovered;
+    }
+  }
 }
 </script>
 
@@ -135,12 +141,14 @@ export default {
     font-family: Satoshi;
     font-size: 24px;
     font-weight: 900;
+
 }
 
 .description-text {
     font-family: Satoshi;
     font-size: 14px;
     font-weight: 500;
+
 }
 
 .img-setup {
@@ -154,10 +162,10 @@ export default {
 }
 
 .title {
-    width: 60%;
+    width: 80%;
 }
 
 .subtitle {
-    width: 60%;
+    width: 80%;
 }
 </style>
