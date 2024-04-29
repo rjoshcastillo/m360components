@@ -30,17 +30,17 @@ export default {
     pillWidth: {
       type: String,
       default: "auto",
-      required: true,
+      required: false,
     },
     pillHeight: {
       type: String,
       default: "auto",
-      required: true,
+      required: false,
     },
     pillPadding: {
       type: String,
       default: "4px 5px 4px 5px",
-      required: true,
+      required: false,
     }
   },
   computed: {},
