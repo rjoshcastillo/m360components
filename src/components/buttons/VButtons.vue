@@ -37,21 +37,24 @@ export default {
       user: userStore(),
       styles: {
         backgroundColor: "",
+        border: "",
         fontColor: "",
+        iconColor: "",
       },
+
       variantStyles: {
         primary: {
           default: {
             backgroundColor: userStore().theme.primary,
             border: `1px solid ${userStore().theme.primary}`,
             fontColor: "#FFFFFF",
-            iconColor: "#FFFFFF"
+            iconColor: "#FFFFFF",
           },
           clicked: {
             backgroundColor: "#0062A8",
             border: `1px solid ${userStore().theme.primary}`,
             fontColor: "#FFFFFF",
-            iconColor: "#FFFFFF"
+            iconColor: "#FFFFFF",
           },
         },
         secondary: {
@@ -59,13 +62,13 @@ export default {
             backgroundColor: "#E6F4FE",
             border: `1px solid ${userStore().theme.primary}`,
             fontColor: userStore().theme.primary,
-            iconColor: userStore().theme.primary
+            iconColor: userStore().theme.primary,
           },
           clicked: {
             backgroundColor: userStore().theme.primary,
             border: `1px solid ${userStore().theme.primary}`,
-            fontColor: '#FFFFFF',
-            iconColor: '#FFFFFF'
+            fontColor: "#FFFFFF",
+            iconColor: "#FFFFFF",
           },
         },
         tertiary: {
@@ -73,23 +76,28 @@ export default {
             backgroundColor: "#FFFFFF",
             border: `1px solid #E8E8E8`,
             fontColor: "#151C36",
-            iconColor: userStore().theme.primary
+            iconColor: userStore().theme.primary,
           },
           clicked: {
             backgroundColor: userStore().theme.primary,
             border: `1px solid ${userStore().theme.primary}`,
-            fontColor: '#FFFFFF',
-            iconColor: '#FFFFFF'
+            fontColor: "#FFFFFF",
+            iconColor: "#FFFFFF",
           },
         },
-        warning: {
+        danger: {
           default: {
             backgroundColor: "#EB2D2D",
             border: `1px solid #EB2D2D`,
             fontColor: "#FFFFFF",
-            iconColor: '#FFFFFF'
+            iconColor: "#FFFFFF",
           },
-          clicked: {},
+          clicked: {
+            backgroundColor: "#EB2D2D",
+            border: `1px solid #EB2D2D`,
+            fontColor: "#FFFFFF",
+            iconColor: "#FFFFFF",
+          },
         },
       },
     };
@@ -107,7 +115,7 @@ export default {
       type: String,
       default: "primary",
       validator: (value) =>
-        ["primary", "secondary", "tertiary", "warning"].includes(value),
+        ["primary", "secondary", "tertiary", "danger"].includes(value),
     },
   },
 
@@ -126,8 +134,7 @@ export default {
       return {
         backgroundColor: this.styles.backgroundColor,
         border: this.styles.border,
-        transition: "background-color 0.2s",
-        opacity: this.styles.opacity || 1,
+        transition: "background-color 0.3s",
       };
     },
   },
@@ -135,17 +142,19 @@ export default {
   watch: {
     disabled: {
       handler(value) {
-        if(value) {
+        if (value) {
           this.styles = { ...this.variantStyles[this.variant].disabled };
         } else {
           this.styles = { ...this.variantStyles[this.variant].default };
         }
-      }
-    }
+      },
+    },
   },
 
   mounted() {
-    this.styles = { ...this.variantStyles[this.variant].default };
+    if(!this.disabled) {
+      this.styles = { ...this.variantStyles[this.variant].default };
+    }
   },
 };
 </script>
@@ -157,6 +166,10 @@ export default {
 
 .btn_label {
   font-size: 14px;
+  max-width: 80%;
+  white-space: nowrap;
+  overflow: hidden; 
+  text-overflow: ellipsis;
 }
 
 .___button {
@@ -168,7 +181,17 @@ export default {
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
   }
 }
-
+.__primary {
+  &.theme--light.v-btn.v-btn--disabled.v-btn--has-bg {
+   
+  }
+}
+.__secondary, .__tertiary {
+  &.theme--light.v-btn.v-btn--disabled.v-btn--has-bg {
+    background-color:#ffffff !important;
+    border: 1px solid #d7e9f5 !important;
+  }
+}
 .__tertiary {
   &:hover {
     border: 1px solid #008df0 !important;

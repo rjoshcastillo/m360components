@@ -7,8 +7,8 @@
       }}</span>
     </div>
     <div>
-      <!-- <Josh />
-      <Junryl /> -->
+      <Josh />
+      <Junryl />
       <Jieric />
     </div>
   </div>

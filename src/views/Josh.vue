@@ -8,7 +8,7 @@
         <div class="d-flex" style="gap: 20px; flex-direction: column">
           <span>PRIMARY</span>
           <v-buttons
-            label="New Audience"
+            label="Button label ellipses"
             variant="primary"
             appendIcon="mdi-plus"
             :disabled="disabled"
@@ -18,7 +18,7 @@
         <div class="d-flex" style="gap: 20px; flex-direction: column">
           <span>SECONDARY</span>
           <v-buttons
-            label="Metric"
+            label="New Audience"
             variant="secondary"
             appendIcon="mdi-plus"
             @click="count++"
@@ -30,6 +30,16 @@
           <v-buttons
             label="Metric"
             variant="tertiary"
+            appendIcon="mdi-plus"
+            @click="count++"
+            :disabled="disabled"
+          />
+        </div>
+        <div class="d-flex" style="gap: 20px; flex-direction: column">
+          <span>DANGER</span>
+          <v-buttons
+            label="Danger"
+            variant="danger"
             appendIcon="mdi-plus"
             @click="count++"
             :disabled="disabled"
@@ -117,20 +127,6 @@
               </v-input-field>
             </v-col>
             <v-col cols="12" sm="4">
-              <v-input-field
-                @input="inputValue"
-                @inputError="inputError"
-                type="password"
-                label="Password"
-                placeholder="Enter password"
-                hintText="Sample Hint"
-                prependIcon="mdi-email-outline"
-                required
-                minChar="8"
-              >
-              </v-input-field>
-            </v-col>
-            <v-col cols="12" sm="4">
               <div style="display: flex; gap: 10px">
                 <div style="width: 153px">
                   <v-input-field
@@ -154,22 +150,7 @@
                   >
                   </v-input-field>
                 </div>
-              </div>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <div style="display: flex; gap: 10px">
-                <div style="width: 153px">
-                  <v-input-field
-                    @input="inputValue"
-                    @inputError="inputError"
-                    type="numeric"
-                    currency="USD"
-                    label="Amount"
-                    placeholder="Enter amount"
-                    hintText="Sample Hint"
-                  >
-                  </v-input-field>
-                </div>
+                
                 <div style="width: 120px">
                   <v-input-field
                     @input="inputValue"
@@ -182,7 +163,6 @@
                 </div>
               </div>
             </v-col>
-            
             <v-col cols="12" sm="4">
               <v-text-area-field
                 @input="inputValue"
@@ -194,6 +174,20 @@
                 maxChar="100"
               >
               </v-text-area-field>
+            </v-col>
+            <v-col cols="12" sm="4">
+              <v-input-field
+                @input="inputValue"
+                @inputError="inputError"
+                type="password"
+                label="Password"
+                placeholder="Enter password"
+                hintText="Sample Hint"
+                prependIcon="mdi-email-outline"
+                required
+                minChar="8"
+              >
+              </v-input-field>
             </v-col>
           </v-row>
         </v-container>

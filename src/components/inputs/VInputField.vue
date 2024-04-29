@@ -153,6 +153,8 @@ export default {
       } else if (this.type === "password") {
         this.validatePassword(value);
       } else if (value.length > this.maxChar) {
+        this.errorText = `Max ${this.maxChar} characters.`;
+      } else if (value.length < this.maxChar) {
         this.errorText = `Min ${this.maxChar} characters.`;
       } else {
         this.errorText = null;
