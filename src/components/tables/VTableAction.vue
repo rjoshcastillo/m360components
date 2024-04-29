@@ -1,62 +1,38 @@
 <template>
     <div>
-        <v-simple-table class="table-setup">
-            <template v-slot:default>
-                <thead class="row-header">
-                    <tr scope="col">
-                        <th scope="col" v-for="(col, index) in filteredHeaders" :key="index" class="column-header"
-                            @click="handleColHeaderClick(col)">
-                            <span class="col-text d-flex"
-                                :style="{ justifyContent: !!col.action_enable ? 'center' : 'flex-start' }">
-                                <span>
-                                    {{ col.text }}
-                                </span>
-                                <span class="ml-2" v-if="!!col.sortable">
-                                    <v-icon :color="col.sorterIndex === 0 && !!col.sortOrder ? 'primary' : 'black'"
-                                        small>{{
-                            !col.sortOrder
-                                ? 'mdi-sort'
-                                : col.sortOrder === 'asc'
-                                    ? 'mdi-sort-ascending'
-                                    : 'mdi-sort-descending'
-                        }}</v-icon>
-                                </span>
-                            </span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(filteredItem, index) in filteredItems" :key="index">
-                        <td v-for="(i, iindex) in filteredItem" :key="iindex" class="table-cell">
-                            <template v-if="iindex === 'status'">
-                                <v-chip :color="getStatusColor(filteredItem[iindex])">
-                                    <span class="col-text" style="color: #fff;">{{ filteredItem[iindex] }}</span>
-                                </v-chip>
-                            </template>
-                            <template v-else-if="iindex === 'action'">
-                                <div class="d-flex align-center">
-                                    <span class="action-text">Action
-                                        <v-icon size="x-large" color="#008DF0">mdi-dots-vertical</v-icon>
-                                    </span>
-                                </div>
-                            </template>
-                            <template v-else>
-                                <span class="col-text">{{ filteredItem[iindex] }}</span>
-                            </template>
-                        </td>
-                    </tr>
-                </tbody>
-            </template>
-        </v-simple-table>
+        <v-card class="table-card-container">
+            <v-data-table v-model="selected" :headers="headers" :items="items" :item-key="itemKey"
+                :show-select="showSelect" :single-select="singleSelect" class="custom_table"
+                hide-default-footer>
+                <template v-slot:item.status="{ item }">
+                    <v-pills :bgColor="getStatusColor(item.status)" :label="item.status">
+                        {{ item.status }}
+                    </v-pills>
+                </template>
+
+            </v-data-table>
+        </v-card>
     </div>
 </template>
 <script>
-
 export default {
     name: 'TableAction',
 
     props: {
         loading: {
+            type: Boolean,
+            default: false,
+        },
+        itemKey: {
+            type: String,
+            default: '',
+        },
+        singleSelect: {
+            type: Boolean,
+            default: false,
+        },
+
+        showSelect: {
             type: Boolean,
             default: false,
         },
@@ -69,21 +45,17 @@ export default {
         },
         hideColumn: {
             type: Array
-        }
-    },
-    computed: {
-        filteredHeaders() {
-            return this.headers.filter(col => !this.hideColumn.includes(col.type));
         },
-        filteredItems() {
-            return this.items.map(item => {
-                const filteredItem = {};
-                this.filteredHeaders.forEach(header => {
-                    filteredItem[header.type] = item[header.type];
-                });
-                return filteredItem;
-            });
+        enableAction: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    data() {
+        return {
+            selected: []
         }
+
     },
     methods: {
         getStatusColor(status) {
@@ -98,87 +70,67 @@ export default {
                     return '';
             }
         },
-        handleColHeaderClick(columnHeader) {
-            if (!columnHeader.sortable) return;
-
-            const sorterResult = { field: columnHeader.key, order: 'asc' };
-
-            switch (columnHeader.sortOrder) {
-                case 'asc':
-                    this.$emit('onChangeSort', { ...sorterResult, order: 'desc' });
-                    break;
-                case 'desc':
-                    this.$emit('onChangeSort', { ...sorterResult, order: undefined });
-                    break;
-                default:
-                    this.$emit('onChangeSort', sorterResult);
-                    break;
-            }
-        },
     }
 }
 </script>
-<style lang="scss" scope>
-.table-setup table tbody tr td {
+<style scoped lang="scss">
+.table-card-container {
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.05);
+    padding: 24px
+}
+
+::v-deep .theme--light.v-data-table .v-data-footer {
+    border: 0
+}
+
+::v-deep .custom_table table tbody tr td {
     border-bottom: 1px solid var(--color-color-gray-neutral-gray-50, #E8E8E8) !important;
     border-top: 1px solid var(--color-color-gray-neutral-gray-50, #E8E8E8) !important;
 }
-.table-setup table tbody tr td:first-child {
+
+::v-deep .custom_table table tbody tr td:first-child {
     border-left: 1px solid var(--color-color-gray-neutral-gray-50, #E8E8E8) !important;
 }
-.table-setup table tbody tr td:last-child {
 
+::v-deep .custom_table table tbody tr td:last-child {
     border-right: 1px solid var(--color-color-gray-neutral-gray-50, #E8E8E8) !important;
 }
 
-.v-data-table {
+::v-deep .custom_table thead th {
+    background-color: #f0f2f5;
+
+    &:first-child {
+        border-radius: 8px 0 0 8px;
+    }
+
+    &:last-child {
+        border-radius: 0 8px 8px 0;
+    }
+}
+
+::v-deep .custom_table tbody td {
+    &:first-child {
+        border-radius: 8px 0 0 8px;
+    }
+
+    &:last-child {
+        border-radius: 0 8px 8px 0;
+    }
+}
+
+::v-deep .text-start {
+    font-family: Satoshi !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #151C36 !important;
+}
+
+::v-deep .v-data-table {
     >.v-data-table__wrapper {
         >table {
             width: 100%;
             border-spacing: 0 1rem;
         }
     }
-}
-
-
-td:first-child,
-th:first-child {
-    border-radius: 8px 0 0 8px;
-}
-
-td:last-child,
-th:last-child {
-    border-radius: 0 8px 8px 0;
-}
-
-.row-header {
-    margin-bottom: 10px;
-}
-
-.row-header tr {
-    background-color: #E8E8EB;
-}
-
-
-.column-header,
-.table-cell {
-    margin-right: 16px;
-}
-
-.col-text {
-    font-family: Satoshi;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.action-text {
-    font-family: Satoshi;
-    font-size: 14px;
-    font-weight: 500;
-    color: #008DF0;
-}
-
-.cursor-pointer {
-    cursor: pointer;
 }
 </style>
