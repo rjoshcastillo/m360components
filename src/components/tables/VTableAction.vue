@@ -1,11 +1,11 @@
 <template>
     <div>
         <v-card class="table-card-container">
-            <v-data-table v-model="selected" :headers="headers" :items="items" :item-key="itemKey"
+            <v-data-table v-model="selected" :headers="updatedHeaders" :items="items" :item-key="itemKey"
                 :show-select="showSelect" :single-select="singleSelect" class="custom_table" hide-default-footer>
                 <template v-slot:item.status="{ item }">
-                    <v-pills :bgColor="getStatusColor(item.status)" :label="item.status" :pillWidth="'68px'" :pillPadding="'8px 12px'"
-                        :pillHeight="'24px'">
+                    <v-pills :bgColor="getStatusColor(item.status)" :label="item.status" :pillWidth="'68px'"
+                        :pillPadding="'8px 12px'" :pillHeight="'24px'">
                     </v-pills>
                 </template>
                 <template v-if="enableAction" v-slot:item.action>
@@ -13,6 +13,16 @@
                             size="x-large" color="#008DF0">mdi-dots-vertical</v-icon></span>
                 </template>
             </v-data-table>
+            <!-- CUSTOM PAGINATION -->
+            <div class="d-flex justify-space-between">
+                <div class="pagination-left-text">Showing 1-{{ items.length }} out of {{ items.length }} entries</div>
+                <!-- <div class="d-flex">
+                    <span class="pagination-button" @click="previousPage">Previous</span>
+                    <v-pagination v-model="page" :length="totalPages" total-visible="5">
+                    </v-pagination>
+                    <span class="pagination-button" @click="nextPage">Next</span>
+                </div> -->
+            </div>
         </v-card>
     </div>
 </template>
@@ -55,9 +65,20 @@ export default {
     },
     data() {
         return {
-            selected: []
+            selected: [],
+            page: 3,
+            totalPages: 10
         }
 
+    },
+    computed: {
+        updatedHeaders() {
+            const headers = [...this.headers];
+            if (this.enableAction) {
+                headers.push({ text: 'Action', value: 'action', sortable: false });
+            }
+            return headers;
+        }
     },
     methods: {
         getStatusColor(status) {
@@ -148,6 +169,9 @@ export default {
         }
     }
 }
+::v-deep .v-pagination__navigation{
+  display: none;
+}
 
 .action-text {
     font-family: RobotoMono;
@@ -155,4 +179,12 @@ export default {
     font-weight: 500;
     color: #008DF0;
 }
+
+.pagination-left-text {
+    font-family: Satoshi;
+    font-size: 16px;
+    font-weight: 500;
+    color: #898989;
+}
+
 </style>

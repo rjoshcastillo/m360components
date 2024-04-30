@@ -34,6 +34,7 @@ declare module 'vue' {
     VMain: typeof import('vuetify/lib')['VMain']
     VModalCondition: typeof import('./src/components/modals/VModalCondition.vue')['default']
     VModalLarge: typeof import('./src/components/modals/VModalLarge.vue')['default']
+    VPagination: typeof import('vuetify/lib')['VPagination']
     VPills: typeof import('./src/components/Pills/VPills.vue')['default']
     VRadio: typeof import('vuetify/lib')['VRadio']
     VRadioBtnComp: typeof import('./src/components/RadioButton/VRadioBtnComp.vue')['default']
