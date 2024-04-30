@@ -1,7 +1,7 @@
 <!-- stepper.vue -->
 <template>
   <div class="stepper">
-    <div class="stepper-header">
+    <div class="stepper-header" :class="{ 'phone-view': $phoneView }">
       <div v-for="(step, index) in steps" :key="index" :class="{
         'step-active': currentStep === index,
         'step-inactive': currentStep !== index,
@@ -20,12 +20,11 @@
               {{ step.stepLabel }}
             </div>
           </div>
-
-        </div>
-        <div class="header-label">
-          <label v-if="currentStep === index"> ACTIVE </label>
-          <label v-else-if="step.done === true"> DONE </label>
-          <label v-else> INACTIVE </label>
+          <div class="header-label" v-if="stepperTag === true">
+            <label v-if="currentStep === index"> ACTIVE </label>
+            <label v-else-if="step.done === true"> DONE </label>
+            <label v-else> INACTIVE </label>
+          </div>
         </div>
       </div>
     </div>
@@ -51,6 +50,7 @@ export default {
   props: {
     stepperLabel: "",
     stepperData: Array,
+    stepperTag: Boolean,
   },
 
   methods: {
@@ -76,10 +76,9 @@ export default {
 
 <style lang="scss" scoped>
 .stepper {
-  padding: 30px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+
 }
 
 .stepper-header {
@@ -87,11 +86,18 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+
+  &.phone-view {
+    flex-direction: column;
+    align-items: start;
+  }
 }
 
 .header-content {
   display: flex;
+  flex-direction: column;
   align-content: center;
+  gap: 10px;
   width: 418.67px;
   height: 139px;
   padding: 32px 16px 32px 16px;
@@ -102,9 +108,14 @@ export default {
 }
 
 .header-item {
+  height: 139px;
+  flex-grow: 1;
   display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
-  gap: 10px;
+  padding: 0;
+  gap: 20px;
 }
 
 .step-name {
@@ -126,21 +137,24 @@ export default {
   background: #008df0;
   border: 1px solid#008df0;
 }
+
 .step-done .step-item {
-  background: #008df0;
+  background: #6abcf6;
   border: 1px solid#008df0;
 }
 
 .step-done .step-item {
-  background: #008df0;
+  background: #6abcf6;
 }
 
 .step-active .step-label {
   color: white;
 }
+
 .step-active .step-item {
   color: white;
 }
+
 .step-item {
   align-content: center;
   border: 2px solid #000;
@@ -168,20 +182,5 @@ export default {
 
 button {
   margin: 0 10px;
-}
-
-/* Media query for screens with a minimum width of 601px and maximum width of 900px */
-@media screen and (min-width: 601px) and (max-width: 900px) {
-  .header {
-    flex-direction: column;
-    align-items: start;
-  }
-}
-
-@media screen and (min-width: 301px) and (max-width: 900px) {
-  .header {
-    flex-direction: column;
-    align-items: start;
-  }
 }
 </style>

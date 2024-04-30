@@ -1,11 +1,12 @@
 <template>
-  <div>
+  <div class="container">
     <div class="stepper-container">
       <h2>STEPPER COMPONENT</h2>
-      <v-stepper-comp :stepperData="stepperData"></v-stepper-comp>
+      <v-stepper-comp :stepperData="stepperData" :stepperTag=false></v-stepper-comp>
     </div>
-    <h2>AVATAR COMPONENT</h2>
+
     <div class="avatar-container">
+      <h2>AVATAR COMPONENT</h2>
       <div class="avatar-content">
         <v-avatar-comp :image="require('@assets/human-avatar.svg')" name="Jhon Doe">
         </v-avatar-comp>
@@ -15,8 +16,8 @@
         </v-avatar-comp>
       </div>
     </div>
-    <h2>RADIO BUTTON COMPONENT</h2>
     <div class="radio-container">
+      <h2>RADIO BUTTON COMPONENT</h2>
       <h3>BUTTONS STATUS</h3>
       <div class="radio-status">
         <div>
@@ -78,30 +79,42 @@
     <h2>PILLS COMPONENT</h2>
     <div class="pills-container">
       <div>
-        <v-pills label="Draft" bgColor="yellow" pillWidth="35px" ></v-pills>
+        <v-pills label="Draft" bgColor="yellow" pillWidth="35px"></v-pills>
         <h6>YELLOW</h6>
       </div>
       <div>
-        <v-pills label="Active" bgColor="green" pillWidth="41px" ></v-pills>
+        <v-pills label="Active" bgColor="green" pillWidth="41px"></v-pills>
         <h6>GREEN</h6>
       </div>
       <div>
-        <v-pills label="Inactive" bgColor="gray" pillWidth="49px" ></v-pills>
+        <v-pills label="Inactive" bgColor="gray" pillWidth="49px"></v-pills>
         <h6>GRAY</h6>
       </div>
       <div>
-        <v-pills label="New" bgColor=" blue" pillWidth="33px" ></v-pills>
+        <v-pills label="New" bgColor=" blue" pillWidth="33px"></v-pills>
         <h6>BLUE</h6>
       </div>
       <div>
-        <v-pills label="Recommended" bgColor="purple" ></v-pills>
+        <v-pills label="Recommended" bgColor="purple"></v-pills>
         <h6>PURPLE</h6>
       </div>
     </div>
     <h2>TABS COMPONENT</h2>
     <div class="tabs-container">
       <div>
-        <v-tabs></v-tabs>
+        <v-tabs-comp :tabsData="tabsData">
+          <template v-slot:0>
+            <p> In Vue.js, v-slot is a directive used to define named slots in components. Named slots allow you to pass
+              content into a component and specify where that content should be rendered within the component's
+              template.</p>
+          </template>
+          <template v-slot:1>
+            <v-data-table></v-data-table>
+          </template>
+          <template v-slot:2>
+            <v-card-banner></v-card-banner>
+          </template>
+        </v-tabs-comp>
       </div>
     </div>
   </div>
@@ -141,7 +154,7 @@ export default {
         },
       ],
       stepperData: [
-      {
+        {
           name: "Step 1",
           component: "Step1Component",
           stepLabel: "Personal Information 1",
@@ -160,23 +173,55 @@ export default {
           done: false,
         },
       ],
+      tabsData: [
+        {
+          label: "item 1",
+          badgeItem: 0,
+          disabled: false
+        },
+        {
+          label: "Tab 2",
+          badgeItem: 1,
+          disabled: false
+        },
+        {
+          label: "Tab 3",
+          badgeItem: 13,
+          disabled: false
+        },
+        {
+          label: "Disabled tab",
+          badgeItem: 13,
+          disabled: true
+        },
+      ],
     };
   },
 };
 </script>
 
 <style scoped>
-.stepper-container {
-  height: 300px;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
 }
+
+.stepper-container {
+  height: auto;
+}
+
 .avatar-content {
   display: flex;
   justify-content: center;
   gap: 20px;
 }
+
 .avatar-container {
   padding: 20px;
 }
+
 .radio-container {
   padding: 30px;
   height: auto;
@@ -184,6 +229,7 @@ export default {
   flex-direction: column;
   border-radius: 4px;
 }
+
 .radio-active {
   padding: 30px;
   height: auto;
@@ -191,18 +237,22 @@ export default {
   flex-direction: column;
   border-radius: 4px;
 }
+
 .radio-status {
   display: flex;
   flex-direction: row;
   gap: 20px;
 }
+
 .checkbox-container {
   padding: 20px;
 }
+
 .checkbox-status {
   display: flex;
   gap: 40px;
 }
+
 .checkbox-active {
   padding: 30px;
   height: auto;
@@ -222,5 +272,6 @@ export default {
   display: flex;
   flex-direction: row;
 }
+
 /* Your component styles here */
 </style>
