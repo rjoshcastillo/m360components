@@ -1,9 +1,9 @@
 <template>
   <div class="tab-container">
 
-    <v-tabs v-model="tab" class="tab-header" v-swipeable>
+    <v-tabs v-model="tab" class="tab-header" v-swipeable @change="handleTabChange">
       <div v-for="(tabItem, index) in tabsData" :key="index" class="tab-content">
-        <v-tab class="custom-tab" :class="{ 'tab-disabled': tabItem.disabled }">
+        <v-tab class="custom-tab" :class="{ 'tab-disabled': tabItem.disabled }" :disabled="tabItem.disabled">
           <div class="tab-item" :class="{ 'tab-disabled': tabItem.disabled }">
             <span class="tab-label"> {{ tabItem.label }}</span>
             <span class="tab-badge" v-if="tabItem.badgeItem !== 0">{{ tabItem.badgeItem }} </span>
@@ -19,7 +19,6 @@
         <div class="tab-content">
           <v-card>
             <slot class="scrollable-content" :name="index">
-              {{ tabItem }}
             </slot>
           </v-card>
         </div>
