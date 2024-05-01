@@ -1,6 +1,6 @@
 <template>
   <v-card class="card-container"
-    :class="{ 'card-container-textonly': !buttonEnable && !imageEnable, 'card-container-mobile': $phoneView }"
+    :class="{ 'card-container-textonly': !buttonEnable && !imageEnable, 'card-container-imagetextonly': !buttonEnable && imageEnable, 'card-container-buttontextonly': buttonEnable && !imageEnable,'card-container-mobile': $phoneView}"
     :style="{ 'width': width, 'height': height, 'background-color': bgColor }">
 
     <div
@@ -90,7 +90,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card-container {
+.card-container,
+.card-container-imagetextonly  {
   border-radius: 20px;
   padding: 32px 0 0 32px;
   display: flex;
@@ -98,6 +99,14 @@ export default {
   overflow: hidden;
 }
 
+.card-container-buttontextonly
+{
+  border-radius: 20px;
+  padding: 32px;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
 .card-container-mobile {
   border-radius: 20px;
   padding: 32px;
@@ -167,7 +176,8 @@ export default {
 .button-container-wo-image {
   display: flex;
   align-items: center;
-    margin-top: 10px;
+  margin-top: 10px;
+  justify-content: center;
 }
 
 .button-container-w-image {
