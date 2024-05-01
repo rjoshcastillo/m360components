@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="dialog" persistent :width="($phoneView && 440) || ($tabletView && 463) || 641"
+    <v-dialog v-model="dialog" persistent :width="$xsView ? 440 : ($phoneView ? 463 : ($tabletView ? 641 : 641))"
         @click:outside="closeDialog()">
         <v-card class="modal-container">
             <div class="close-dialog"><v-icon @click="closeDialog()" class="close-icon">mdi-close</v-icon></div>
@@ -28,24 +28,24 @@
 
                 </div>
                 <div v-if="showSecondButton && !showThirdButton"
-                    :class="$phoneView ? 'width_button_group_mobile phone_view_primary_spacing ' : 'width_button_group'">
+                    :class="$phoneView ? 'width_button_group_mobile ' : 'width_button_group'">
                     <v-buttons v-if="showSecondButton" :block="true" @click="onSecondAction" :label="secondButtonText"
                         variant="secondary" />
                 </div>
                 <div v-if="showThirdButton">
                     <v-buttons :block="$phoneView"
                         :class="{ 'primary-button-spacing': buttonCount !== 2, 'primary-button-spacing_mobile': $phoneView }"
-                        @click="onFirstAction" :label="firstButtonText" :variant="!isAlert ? 'primary' : 'warning'" />
+                        @click="onFirstAction" :label="firstButtonText" :variant="!isAlert ? 'primary' : 'danger'" />
                 </div>
 
                 <div v-if="showSecondButton && !showThirdButton"
-                    :class="$phoneView ? 'width_button_group_mobile' : 'width_button_group'">
-                    <v-buttons @click="onFirstAction" :block="true" :label="firstButtonText"
-                        :variant="!isAlert ? 'primary' : 'warning'" />
+                    :class="$phoneView ? 'width_button_group_mobile  phone_view_primary_spacing' : 'width_button_group'">
+                    <v-buttons @click="onFirstAction" :block="true" :label="firstButtonText" 
+                        :variant="!isAlert ? 'primary' : 'danger'" />
                 </div>
                 <div v-if="!showSecondButton && !showThirdButton">
                     <v-buttons @click="onFirstAction" :block="true" :label="firstButtonText"
-                        :variant="!isAlert ? 'primary' : 'warning'" />
+                        :variant="!isAlert ? 'primary' : 'danger'" />
                 </div>
             </div>
 
@@ -174,7 +174,8 @@ export default {
 }
 
 .button_group.mobile {
-    flex-direction: column;
+    
+    flex-direction: column-reverse;
     width: 100%;
 }
 
@@ -199,7 +200,7 @@ export default {
     margin-bottom: 18px;
 }
 .phone_view_spacing {
-    margin-bottom: 16px;
+    margin-top: 16px;
 }
 
 .button-spacing {

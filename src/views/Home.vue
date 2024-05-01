@@ -8,8 +8,8 @@
     </div>
     <div>
       <!-- <Josh /> -->
-      <Junryl />
-      <!-- <Jieric /> -->
+      <!-- <Junryl /> -->
+      <Jieric />
     </div>
   </div>
 </template>

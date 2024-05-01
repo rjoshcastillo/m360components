@@ -31,7 +31,7 @@
                 </div>
                 <div>
                     <h4 class="mb-2">Alert Modal</h4>
-                    <v-buttons @click="openModalCondition_alert" label="Modal Condition" variant="warning" />
+                    <v-buttons @click="openModalCondition_alert" label="Modal Condition" variant="danger" />
                 </div>
 
             </div>
@@ -89,7 +89,7 @@
         <!-- MODAL COMPONENT HERE -->
         <v-modal-large :dialog="showModalLarge" @closeDialog="closeModalLarge" :isImageEnabled="true"></v-modal-large>
         <v-modal-condition :dialog="showModalCondition" @closeDialog="closeModalCondition" @onYes="closeModalCondition"
-            :buttonCount="2" @onNo="closeModalCondition"></v-modal-condition>
+            :buttonCount="1" @onNo="closeModalCondition"></v-modal-condition>
         <v-modal-condition :dialog="showModalCondition_alert" @closeDialog="closeModalCondition_alert"
             @onYes="closeModalCondition_alert" @onNo="closeModalCondition_alert" :isAlert="true"
             :buttonCount="2"></v-modal-condition>
