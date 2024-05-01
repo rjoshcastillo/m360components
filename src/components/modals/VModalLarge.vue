@@ -1,8 +1,10 @@
 <template>
-    <v-dialog v-model="dialog" persistent :width="isImageEnabled && !$phoneView ? '637' : '415'" @click:outside="closeDialog()">
+    <v-dialog v-model="dialog" persistent :width="isImageEnabled && !$phoneView ? '637' : '415'"
+        @click:outside="closeDialog()">
         <div class="parent-container">
-            <v-card class="dialog-container" :class="{'dialog-container-noimage': !isImageEnabled, 'dialog-container-noimage' : $phoneView }">
-                <div class="left-container">
+            <v-card class="dialog-container"
+                :class="{ 'dialog-container-noimage': !isImageEnabled, 'dialog-container-noimage': $phoneView }">
+                <div class="left-container" :class="{ 'left-container-no-image': !isImageEnabled }">
                     <div class="bottom-margin">
                         <v-img class="m360-icon" :src="require('@assets/m360-icon.svg')" alt="m360Icon"></v-img>
                     </div>
@@ -90,16 +92,33 @@ export default {
     padding: 32px;
     background-color: #E6F4FE;
     border-radius: 20px;
+
 }
 
 .dialog-container-noimage {
     width: 100%;
+
     .left-container {
-        width: 100%;     
+        width: 100%;
     }
+
     .right-img {
         width: 0;
     }
+}
+
+.left-container {
+    width: 62%;
+}
+
+.right-img {
+    position: absolute;
+    bottom: 0;
+    right: -20px;
+}
+
+.left-container-no-image {
+    width: 100%;
 }
 
 .title-text {
@@ -126,15 +145,6 @@ export default {
     height: 41.43px;
 }
 
-.left-container {
-    width: 62%;
-}
-
-.right-img {
-    position: absolute;
-    bottom: 0;
-    right: -20px;
-}
 
 ::v-deep .v-dialog {
     box-shadow: none !important;
