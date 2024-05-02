@@ -7,7 +7,7 @@
             </div>
             <div>
                 <v-table-action :headers="tableHeader" :items="tableData" :showSelect="true" :hideColumn="hideColumn"
-                    @onChangeSort="updateSorterColumn" :enableAction="true" ></v-table-action>
+                    @onChangeSort="updateSorterColumn" :enableAction="true"></v-table-action>
             </div>
         </div>
         <!-- MODAL -->
@@ -194,7 +194,7 @@ export default {
                     type: 'last_active',
                     value: 'last_active',
                     sortable: true
-                    
+
                 },
                 {
                     text: 'Status',
@@ -202,46 +202,152 @@ export default {
                     value: 'status',
                     sortable: true
                 },
-                {
-                    text: 'Action',
-                    type: 'action',
-                    value: 'action',
-                    sortable: false
-                },
-
-
             ],
-            tableData: [{
-                id: 1,
-                name: 'Dog Trainer',
-                channel: '2 minutes ago',
-                last_active: '22 hours ago',
-                status: 'Completed'
+            tableData: {
+                data: [
+                    {
+                        "id": 1,
+                        "name": "Dog Trainer",
+                        "channel": "2 minutes ago",
+                        "last_active": "22 hours ago",
+                        "status": "Completed"
+                    },
+                    {
+                        "id": 2,
+                        "name": "Web Designer",
+                        "channel": "3 days ago",
+                        "last_active": "10 minutes ago",
+                        "status": "Completed"
+                    },
+                    {
+                        "id": 3,
+                        "name": "Medical Assistant",
+                        "channel": "12 hours ago",
+                        "last_active": "12 hours ago",
+                        "status": "Ongoing"
+                    },
+                    {
+                        "id": 4,
+                        "name": "Marketing Coordinator",
+                        "channel": "2 minutes ago",
+                        "last_active": "2 hours ago",
+                        "status": "Completed"
+                    },
+                    {
+                        "id": 5,
+                        "name": "Software Engineer",
+                        "channel": "1 day ago",
+                        "last_active": "1 hour ago",
+                        "status": "Ongoing"
+                    },
+                    {
+                        "id": 6,
+                        "name": "Graphic Designer",
+                        "channel": "1 week ago",
+                        "last_active": "1 day ago",
+                        "status": "Completed"
+                    },
+                    {
+                        "id": 7,
+                        "name": "Data Analyst",
+                        "channel": "1 month ago",
+                        "last_active": "1 week ago",
+                        "status": "Ongoing"
+                    },
+                    {
+                        "id": 8,
+                        "name": "Customer Support Representative",
+                        "channel": "2 hours ago",
+                        "last_active": "30 minutes ago",
+                        "status": "Completed"
+                    },
+                    {
+                        "id": 9,
+                        "name": "Project Manager",
+                        "channel": "2 weeks ago",
+                        "last_active": "2 days ago",
+                        "status": "Ongoing"
+                    },
+                    {
+                        "id": 10,
+                        "name": "Sales Associate",
+                        "channel": "1 hour ago",
+                        "last_active": "30 minutes ago",
+                        "status": "Completed"
+                    },
+                    {
+                        "id": 11,
+                        "name": "Content Writer",
+                        "channel": "3 weeks ago",
+                        "last_active": "1 week ago",
+                        "status": "Ongoing"
+                    },
+                    {
+                        "id": 12,
+                        "name": "Accountant",
+                        "channel": "5 days ago",
+                        "last_active": "1 day ago",
+                        "status": "Completed"
+                    },
+                    {
+                        "id": 13,
+                        "name": "HR Manager",
+                        "channel": "1 month ago",
+                        "last_active": "1 day ago",
+                        "status": "Ongoing"
+                    },
+                    {
+                        "id": 14,
+                        "name": "Legal Counsel",
+                        "channel": "3 days ago",
+                        "last_active": "1 hour ago",
+                        "status": "Completed"
+                    },
+                    {
+                        "id": 15,
+                        "name": "Quality Assurance Specialist",
+                        "channel": "2 weeks ago",
+                        "last_active": "2 days ago",
+                        "status": "Ongoing"
+                    },
+                    {
+                        "id": 16,
+                        "name": "Network Administrator",
+                        "channel": "2 months ago",
+                        "last_active": "1 week ago",
+                        "status": "Completed"
+                    },
+                    {
+                        "id": 17,
+                        "name": "Research Scientist",
+                        "channel": "4 weeks ago",
+                        "last_active": "1 week ago",
+                        "status": "Ongoing"
+                    },
+                    {
+                        "id": 18,
+                        "name": "Event Coordinator",
+                        "channel": "3 months ago",
+                        "last_active": "2 weeks ago",
+                        "status": "Completed"
+                    },
+                    {
+                        "id": 19,
+                        "name": "Architect",
+                        "channel": "1 year ago",
+                        "last_active": "1 month ago",
+                        "status": "Ongoing"
+                    },
+                    {
+                        "id": 20,
+                        "name": "Financial Analyst",
+                        "channel": "6 months ago",
+                        "last_active": "1 month ago",
+                        "status": "Completed"
+                    }],
+                total: 20
+
             },
-            {
-                id: 2,
-                name: 'Web Designer',
-                channel: '3 days ago',
-                last_active: '10 minutes ago',
-                status: 'Completed'
-            },
-            {
-                'id': 3,
-                'name': 'Medical Assistant',
-                'channel': '12 hours ago',
-                'last_active': '12 hours ago',
-                'status': 'Ongoing',
-                'test': 'sample'
-            },
-            {
-                id: 4,
-                name: 'Marketing Coordinator',
-                channel: '2 minutes ago',
-                last_active: '2 hours ago',
-                status: 'Completed',
-                nation: 'test'
-            },
-            ],
             sorterColumns: [
                 {
                     field: 'name',

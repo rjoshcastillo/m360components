@@ -44,6 +44,7 @@ declare module 'vue' {
     VTab: typeof import('vuetify/lib')['VTab']
     VTabItem: typeof import('vuetify/lib')['VTabItem']
     VTableAction: typeof import('./src/components/tables/VTableAction.vue')['default']
+    VTablePagination: typeof import('./src/components/tables/VTablePagination.vue')['default']
     VTabs: typeof import('vuetify/lib')['VTabs']
     VTabsComp: typeof import('./src/components/tabs/VTabsComp.vue')['default']
     VTabsItems: typeof import('vuetify/lib')['VTabsItems']
